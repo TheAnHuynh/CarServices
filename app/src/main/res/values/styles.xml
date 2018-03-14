@@ -1,11 +1,40 @@
 <resources>
-
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="CarServicesAppTheme" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:colorPrimary">@color/primaryColor</item>
+        <item name="android:colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="android:colorAccent">@color/secondaryColor</item>
+
+        <!--<item name="buttonStyle">@style/buttonStyle</item>-->
+
+    </style>
+
+    <style name="primaryTextStyle" parent="AppTheme">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="primarySmallTextStyle" parent="AppTheme">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+    
+    <style name="primaryLargeTextStyle" parent="AppTheme">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="buttonStyle" parent="AppTheme" >
+        <item name="android:textColor">@color/secondaryTextColor</item>
+        <item name="android:background">@drawable/button_selector</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
 </resources>
