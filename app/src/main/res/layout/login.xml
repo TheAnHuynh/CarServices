@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    >
+
+    <ImageView
+        android:id="@+id/imageviewLogo"
+        android:layout_width="250dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/ic_launcher" />
+
+
+    <EditText
+        android:id="@+id/edittextUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageviewLogo"
+        android:hint="Tài khoản" />
+
+    <EditText
+        android:id="@+id/edittextPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edittextUser"
+        android:hint="Mật khẩu"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/buttonCreateID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/buttonForgotPass"
+        android:layout_alignBottom="@+id/buttonForgotPass"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="25dp"
+        android:text="Tạo tài khoản"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/buttonForgotPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edittextPass"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/buttonCreateID"
+        android:text="Quên mật khẩu"
+        android:textSize="20sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+       />
+
+    <Button
+        android:id="@+id/buttonLogin"
+        android:layout_width="250dp"
+        android:layout_height="80dp"
+        style="@style/circleButtonStyle"
+        android:layout_below="@+id/buttonCreateID"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="20dp"
+        android:text="Đăng nhập"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#ffffff"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/buttonLoginFB"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/buttonLoginMail"
+        android:layout_alignStart="@+id/buttonLoginMail"
+        android:layout_below="@+id/buttonLogin"
+        android:layout_marginTop="27dp"
+        android:text="Đăng nhập Facebook"
+        android:textAllCaps="false"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+         />
+
+    <Button
+        android:id="@+id/buttonLoginMail"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonLoginFB"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="5dp"
+        android:text="Đăng nhập Gmail"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+         />
+
+</RelativeLayout>
+
+
+
