@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="com.example.hoangthang.timkiemxekhach.MainActivity">
+   <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TÌM KIẾM CHUYẾN XE"
+        android:textSize="20dp"
+        android:gravity="center"
+        />
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="180dp"
+       android:orientation="vertical"
+       >
+       <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="40dp"
+       android:orientation="horizontal"
+       >
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="match_parent"
+           android:text="Điểm đi :"
+           android:textSize="20dp"
+
+           />
+       <EditText
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:hint="Nhập điểm đi"
+           android:gravity="center"
+           android:id="@+id/txtDiemDi"
+           />
+   </LinearLayout>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="40dp"
+           android:orientation="horizontal"
+           >
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="match_parent"
+               android:text="Điểm đến :"
+               android:textSize="20dp"
+               />
+           <EditText
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:hint="Nhập điểm đến"
+               android:gravity="center"
+               android:id="@+id/txtDiemDen"
+               />
+       </LinearLayout>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="40dp"
+           android:orientation="horizontal"
+           >
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="match_parent"
+               android:text="Ngày đi :"
+               android:textSize="20dp"
+               />
+        <DatePicker
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/dtNgayDi"
+            ></DatePicker>
+       </LinearLayout>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="40dp"
+           android:orientation="horizontal"
+           >
+           <Button
+               android:id="@+id/btnTimKiem"
+               android:layout_width="100dp"
+               android:layout_height="match_parent"
+               android:text="Tìm kiếm"
+               android:layout_marginLeft="140dp"
+               android:background="#ff0011"
+              />
+
+       </LinearLayout>
+
+   </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
+        >
+
+
+    </ListView>
+
+</LinearLayout>
+
+
+</LinearLayout>
+
+
+
+
+
