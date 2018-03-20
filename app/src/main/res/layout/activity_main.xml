@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/hinh"
+    tools:context="com.example.mac.login.MainActivity">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/ic_menu_set_as" />
+    <TextView
+        android:gravity="center"
+        android:textSize="30dp"
+        android:text="PROFILE"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#e4bf08"
+         />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#edeaea"
+        >
+
+        <ImageView
+            android:id="@+id/Avarta"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/man" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        >
+        <TextView
+            android:textSize="20dp"
+            android:textColor="#0b0b0b"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Họ và tên     :  "/>
+
+        <android.support.v7.widget.AppCompatEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Nhập vào họ tên"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:textSize="20dp"
+            android:textColor="#0a0303"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Email            :  "/>
+        <android.support.v7.widget.AppCompatEditText
+            android:textSize="20dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nhập vào email"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:textSize="20dp"
+            android:textColor="#0a0303"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Mật khẩu     :  "/>
+        <android.support.v7.widget.AppCompatEditText
+            android:textSize="20dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nhập vào mật khẩu"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:textSize="20dp"
+            android:textColor="#0a0303"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Nhập lại MK:  "/>
+        <android.support.v7.widget.AppCompatEditText
+            android:textSize="20dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nhập lại pass"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:textSize="20dp"
+            android:textColor="#0a0303"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="SĐT              :  "/>
+        <android.support.v7.widget.AppCompatEditText
+            android:textSize="20dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nhập vào SDT"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center"
+        >
+        <Button
+            android:textSize="20dp"
+            android:text="ĐĂNG KÍ"
+            android:layout_width="wrap_content"
+            android:background="#ed2106"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</android.widget.LinearLayout>
