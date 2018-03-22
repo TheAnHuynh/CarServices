@@ -25,7 +25,7 @@ public class historyLayout_Controller extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.history_Layout);
+        setContentView(R.layout.history_layout);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         scrollView = (NestedScrollView) findViewById(R.id.nestscrollview);
@@ -35,7 +35,7 @@ public class historyLayout_Controller extends AppCompatActivity {
                 "Tổng chi phí: ", "đ 100.000", "Thanh Toán");
         arrTick.add(tick);
         arrTick.add(tick);
-        adapter = new arrayListItemAdapter_Model(this, R.layout.item_TabPage_Layout, arrTick);
+        adapter = new arrayListItemAdapter_Model(this, R.layout.item_listofhistory_layout, arrTick);
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
