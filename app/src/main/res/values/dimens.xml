@@ -7,4 +7,5 @@
     <dimen name="largeTextSize">20sp</dimen>
     <dimen name="editTextMinHeight">30dp</dimen>
     <dimen name="layoutPadding">10dp</dimen>
+    <dimen name="buttonTextSize">24sp</dimen>
 </resources>
