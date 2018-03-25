@@ -4,7 +4,7 @@ package d14cqcp01.group5.carservices;
  * Created by T420 on 3/15/2018.
  */
 
-public class ticket_OfHistoryLayout_Model {
+public class TicketOfHistoryLayoutModel {
     private String id;
     private String iconBrand;
     private String brand;
@@ -18,9 +18,9 @@ public class ticket_OfHistoryLayout_Model {
     private String moreinfosupport;
     private String buttonInfo;
 
-    public ticket_OfHistoryLayout_Model(String id, String iconBrand, String brand, String customer, float rating,
-                                        String from, String to, String timeStart, String timeEnd, String moreinfo,
-                                        String moreinfosupport, String buttonInfo) {
+    public TicketOfHistoryLayoutModel(String id, String iconBrand, String brand, String customer, float rating,
+                                      String from, String to, String timeStart, String timeEnd, String moreinfo,
+                                      String moreinfosupport, String buttonInfo) {
         this.id = id;
         this.iconBrand = iconBrand;
         this.brand = brand;

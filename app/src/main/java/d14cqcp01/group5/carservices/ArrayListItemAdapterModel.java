@@ -15,14 +15,14 @@ import java.util.ArrayList;
  * Created by T420 on 3/15/2018.
  */
 
-public class arrayListItemAdapter_Model extends ArrayAdapter<ticket_OfHistoryLayout_Model>
+public class ArrayListItemAdapterModel extends ArrayAdapter<TicketOfHistoryLayoutModel>
 {
     Activity context=null;
-    ArrayList<ticket_OfHistoryLayout_Model> myArray=null;
+    ArrayList<TicketOfHistoryLayoutModel> myArray=null;
     int layoutId;
-    public arrayListItemAdapter_Model(Activity context,
-                                      int layoutId,
-                                      ArrayList<ticket_OfHistoryLayout_Model>arr) {
+    public ArrayListItemAdapterModel(Activity context,
+                                     int layoutId,
+                                     ArrayList<TicketOfHistoryLayoutModel>arr) {
         super(context, layoutId, arr);
         this.context=context;
         this.layoutId=layoutId;
@@ -56,7 +56,7 @@ public class arrayListItemAdapter_Model extends ArrayAdapter<ticket_OfHistoryLay
             final TextView btn = (Button)
                     convertView.findViewById(R.id.button);
 
-            final ticket_OfHistoryLayout_Model tick = myArray.get(position);
+            final TicketOfHistoryLayoutModel tick = myArray.get(position);
 
             b.setText(tick.getBrand());
             r.setText(Float.toString(tick.getRating()) + "/5.0");

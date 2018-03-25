@@ -13,29 +13,29 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class historyLayout_Controller extends AppCompatActivity {
+public class HistoryLayoutController extends AppCompatActivity {
 
     TabLayout tabLayout;
     ViewPager viewPager;
-    ArrayList<ticket_OfHistoryLayout_Model> arrTick = new ArrayList<ticket_OfHistoryLayout_Model>();
+    ArrayList<TicketOfHistoryLayoutModel> arrTick = new ArrayList<TicketOfHistoryLayoutModel>();
     ListView lvTick = null;
-    arrayListItemAdapter_Model adapter = null;
+    ArrayListItemAdapterModel adapter = null;
     NestedScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.history_Layout);
+        setContentView(R.layout.history_layout);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         scrollView = (NestedScrollView) findViewById(R.id.nestscrollview);
         scrollView.setFillViewport(true);
-        ticket_OfHistoryLayout_Model tick = new ticket_OfHistoryLayout_Model("pt", "b", "Phương Trang", "Mạnh Hùng", 2,
+        TicketOfHistoryLayoutModel tick = new TicketOfHistoryLayoutModel("pt", "b", "Phương Trang", "Mạnh Hùng", 2,
                 "Từ: Sài Gòn", "Đến: Hà Nội", "Giờ đi: 17:00:00", "Giờ đến: 17:00:00 18/02/2018",
                 "Tổng chi phí: ", "đ 100.000", "Thanh Toán");
         arrTick.add(tick);
         arrTick.add(tick);
-        adapter = new arrayListItemAdapter_Model(this, R.layout.item_TabPage_Layout, arrTick);
+        adapter = new ArrayListItemAdapterModel(this, R.layout.item_tabpage_layout, arrTick);
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
@@ -44,12 +44,12 @@ public class historyLayout_Controller extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        pagechoxuli_OfHistoryLayout_Model Fragment = new pagechoxuli_OfHistoryLayout_Model();
+        PageChoXuLiOfHistoryLayoutModel Fragment = new PageChoXuLiOfHistoryLayoutModel();
         Fragment.setAdapter(adapter);
         pagerAdapter.addFragment(Fragment, "Chờ xử lí");
-        pagerAdapter.addFragment(new pagechoxuli_OfHistoryLayout_Model(), "Đang sử dụng");
-        pagerAdapter.addFragment(new pagechoxuli_OfHistoryLayout_Model(), "Đã thành công");
-        pagerAdapter.addFragment(new pagechoxuli_OfHistoryLayout_Model(), "Đã hủy");
+        pagerAdapter.addFragment(new PageChoXuLiOfHistoryLayoutModel(), "Đang sử dụng");
+        pagerAdapter.addFragment(new PageChoXuLiOfHistoryLayoutModel(), "Đã thành công");
+        pagerAdapter.addFragment(new PageChoXuLiOfHistoryLayoutModel(), "Đã hủy");
         viewPager.setAdapter(pagerAdapter);
         viewPager.setOffscreenPageLimit(4);
     }

@@ -12,10 +12,10 @@ import android.widget.ListView;
  * Created by T420 on 3/14/2018.
  */
 
-public class pagechoxuli_OfHistoryLayout_Model extends Fragment {
-        arrayListItemAdapter_Model adapter=null;
+public class PageChoXuLiOfHistoryLayoutModel extends Fragment {
+        ArrayListItemAdapterModel adapter=null;
 
-    public void setAdapter(arrayListItemAdapter_Model adapter) {
+    public void setAdapter(ArrayListItemAdapterModel adapter) {
         this.adapter = adapter;
     }
 
@@ -26,7 +26,7 @@ public class pagechoxuli_OfHistoryLayout_Model extends Fragment {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.tabpage_OfHistory_LayOut, null);
+            View view = inflater.inflate(R.layout.tabpage_ofhistory_layout, null);
 
             ListView lv = (ListView) view.findViewById(R.id.listView);
             lv.setAdapter(adapter);
