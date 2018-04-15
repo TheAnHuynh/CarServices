@@ -1,4 +1,38 @@
 <resources>
     <string name="app_name">CarServices</string>
 
+    <!-- Facebook Api-->
+    <string name="facebook_app_id">194919544605668</string>
+    <string name="fb_login_protocol_scheme">fb194919544605668</string>
+
+    <!-- layout_dang_ky_tai_khoan.xml-->
+    <string name="profile">PROFILE</string>
+    <string name="display_name">Họ và tên:</string>
+    <string name="type_display_name">Nhập họ và tên</string>
+    <string name="email">Email:</string>
+    <string name="type_email">Nhập email</string>
+    <string name="password">Mật khẩu:</string>
+    <string name="type_password">Nhập mật khẩu</string>
+    <string name="password_confirm">Xác nhận lại mật khẩu:</string>
+    <string name="type_password_confirm">Nhập lại mật khẩu</string>
+    <string name="phone">Điện thoại:</string>
+    <string name="type_phone">Nhập số điện thoại</string>
+    <string name="signup">ĐĂNG KÍ</string>
+    <string name="avatar_description">Avatar</string>
+
+    <!--layout_dat_lai_mat_khau-->
+    <string name="notification_reset_password">Hãy nhập lại địa chỉ email \nđã đăng ký để nhận được email đặt lại mật khẩu.</string>
+    <string name="registered_email">Nhập lại email đã đăng ký:</string>
+    <string name="sent_reset_password_email">Gửi</string>
+    <string name="registered_email_hint">Email của bạn</string>
+
+    <!--layout_lua_chon_phuong_tien-->
+    <string name="select_a_service">Lựa chọn phương tiện mà bạn muốn tìm kiếm thông tin:</string>
+    <string name="bus">Xe Buýt</string>
+    <string name="passenger_cars">Xe Khách</string>
+    
+    <!-- layout_quan_li_xe_khach-->
+    <string name="search_passenger_car">Tìm kiếm xe khách</string>
+    <string name="user_info">Thông tin người dùng</string>
+    <string name="booking_history">Lịch sử đặt vé</string>
 </resources>

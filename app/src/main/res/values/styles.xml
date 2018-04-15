@@ -15,6 +15,9 @@
         <item name="editTextStyle">@style/editTextStyle</item>
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:buttonStyleToggle">@style/toggleButtonStyle</item>
+
+
+
     </style>
 
     <style name="primaryTextStyle" parent="CarServicesAppTheme">
@@ -56,7 +59,8 @@
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textStyle">normal</item>
         <item name="android:gravity">left</item>
-        <item name="android:padding">10dp</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:background">@drawable/edittext_background</item>
         <item name="android:minHeight">@dimen/editTextMinHeight</item>
     </style>
 
