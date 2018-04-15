@@ -4,17 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:padding="@dimen/layoutPadding"
     android:orientation="vertical">
-    <Button
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        style="@style/circleButtonStyle"
-        android:text="Xe Bus"/>
+        android:text="@string/select_a_service"
+        android:layout_marginBottom="20dp"/>
+
     <Button
+        android:id="@+id/btnBus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
         style="@style/circleButtonStyle"
-        android:text="Xe Khách"/>
+        android:layout_marginBottom="20dp"
+        android:text="@string/bus"/>
+    <Button
+        android:id="@+id/btnPassengerCar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/circleButtonStyle"
+        android:text="@string/passenger_cars"/>
 </LinearLayout>
