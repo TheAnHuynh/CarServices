@@ -25,11 +25,6 @@
     <string name="registered_email">Nhập lại email đã đăng ký:</string>
     <string name="sent_reset_password_email">Gửi</string>
     <string name="registered_email_hint">Email của bạn</string>
-
-    <!--layout_lua_chon_phuong_tien-->
-    <string name="select_a_service">Lựa chọn phương tiện mà bạn muốn tìm kiếm thông tin:</string>
-    <string name="bus">Xe Buýt</string>
-    <string name="passenger_cars">Xe Khách</string>
     
     <!-- layout_quan_li_xe_khach-->
     <string name="search_passenger_car">Tìm kiếm xe khách</string>

@@ -3,12 +3,12 @@ package d14cqcp01.group5.carservices;
 import java.util.Date;
 
 public class XeKhach {
-    public final static String XE_GIUONG_NAM = "Xe gường nằm"; // 38 chỗ
+    public final static String XE_GIUONG_NAM = "Xe gường nằm"; // 39 chỗ
     public final static String XE_16_CHO = "XE 16 chỗ";
     public final static String XE_24_CHO = "Xe 24 chỗ";
     public final static String XE_29_CHO = "Xe 29 chỗ";
     public final static String XE_34_CHO = "Xe 34 chỗ";
-    public final static String XE_46_CHO = "Xe 46 chỗ";
+    public final static String XE_42_CHO = "Xe 42 chỗ";
 
     private String maNhaXe;
     private String maXeKhach;
