@@ -1,5 +1,6 @@
 package d14cqcp01.group5.carservices;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -35,7 +36,10 @@ public class QuanLiXeKhachActivity extends AppCompatActivity {
         btnbtnSearhPassengerCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: Chuyển đến tìm kiếm xe khách
+                // Chuyển đến tìm kiếm xe khách
+                Intent intent = new Intent(QuanLiXeKhachActivity.this, SearchActivity.class);
+                startActivity(intent);
+
             }
         });
 

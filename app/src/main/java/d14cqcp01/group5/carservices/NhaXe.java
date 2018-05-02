@@ -1,6 +1,8 @@
 package d14cqcp01.group5.carservices;
 
-public class NhaXe {
+import java.io.Serializable;
+
+public class NhaXe implements Serializable{
 
     private String tenNhaXe;
 
