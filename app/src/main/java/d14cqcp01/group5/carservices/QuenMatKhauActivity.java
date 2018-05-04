@@ -1,5 +1,6 @@
 package d14cqcp01.group5.carservices;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,13 +12,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.AuthResult;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.android.gms.tasks.OnCompleteListener;
-public class GuiLaiPassThongQuaEmail extends AppCompatActivity {
+public class QuenMatKhauActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    private final static String TAG = "GuiLaiPassThongQuaEmail";
+    private final static String TAG = "QuenMatKhauActivity";
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     Button btnDangki;
     EditText email;
@@ -43,7 +42,7 @@ public class GuiLaiPassThongQuaEmail extends AppCompatActivity {
         String emailAddress = email.getText().toString().trim();
         if(Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches() == false){
             Log.d(TAG,"Email không đúng định dạng");
-            Toast.makeText(GuiLaiPassThongQuaEmail.this,"Email không đúng định dạng.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(QuenMatKhauActivity.this,"Email không đúng định dạng.",Toast.LENGTH_SHORT).show();
             return;
         }
         mAuth.sendPasswordResetEmail(emailAddress)
@@ -51,11 +50,11 @@ public class GuiLaiPassThongQuaEmail extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            //Log.d(TAG, "Email sent.");
-                            Toast.makeText(GuiLaiPassThongQuaEmail.this, "Đã Gửi thành công", Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "Email sent.");
+                            Toast.makeText(QuenMatKhauActivity.this, "Đã Gửi thành công", Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            Toast.makeText(GuiLaiPassThongQuaEmail.this, "THất bại", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(QuenMatKhauActivity.this, "THất bại", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -67,4 +66,11 @@ public class GuiLaiPassThongQuaEmail extends AppCompatActivity {
         email = (EditText)findViewById(R.id.txtEmail1);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        // Xử lý khi nhấn nút back
+        startActivity(new Intent(QuenMatKhauActivity.this,LoginActivity.class));
+        finish();
+    }
 }

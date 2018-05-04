@@ -113,4 +113,12 @@
     <!-- DatCho-->
     <string name="currentCarID">CAR_ID</string>
     <string name="currentCarType">CAR_TYPE</string>
+
+    <!--layout đăng nhập-->
+    <string name="hint_taikhoan">Email</string>
+    <string name="hint_matkhau">Mật khẩu</string>
+    <string name="text_quenmatkhau">Quên mật khẩu</string>
+    <string name="text_taotaikhoan">Tạo tài khoản</string>
+    <string name="text_dangnhap">Đăng nhập</string>
+    <string name="text_dangnhapmail">Đăng nhập Gmail</string>
 </resources>

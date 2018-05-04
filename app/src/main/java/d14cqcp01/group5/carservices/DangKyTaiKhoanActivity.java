@@ -1,5 +1,6 @@
 package d14cqcp01.group5.carservices;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -130,5 +131,13 @@ private FirebaseAuth mAuth;
                 });
         DatabaseReference myref = FirebaseDatabase.getInstance().getReference();
         myref.child("Phone").child(user.getUid()).setValue(Phone);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        // Xử lý khi nhấn nút back
+        startActivity(new Intent(DangKyTaiKhoanActivity.this,LoginActivity.class));
+        finish();
     }
 }
