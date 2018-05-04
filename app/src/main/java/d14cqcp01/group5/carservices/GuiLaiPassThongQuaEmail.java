@@ -37,41 +37,6 @@ public class GuiLaiPassThongQuaEmail extends AppCompatActivity {
             }
         });
     }
-/*
-    private void Dangki()
-    {
-        String Email = email.getText().toString();
-        String Pass = pass.getText().toString();
-        mAuth.createUserWithEmailAndPassword(Email, Pass)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(MainActivity.this, "Đăng kí thành công", Toast.LENGTH_SHORT).show();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(MainActivity.this, "Đăng kí thất bại", Toast.LENGTH_SHORT).show();
-                        }
-
-                        // ...
-                    }
-                });
-
-
-    }
-
-    private void AnhXa()
-    {
-        btnDangki = (Button)findViewById(R.id.btnDk);
-        hoten = (EditText)findViewById(R.id.txtHovaten);
-        email = (EditText)findViewById(R.id.txtEmail);
-        pass = (EditText)findViewById(R.id.txtMatkhau);
-        repass = (EditText)findViewById(R.id.txtRePass);
-        sdt = (EditText)findViewById(R.id.txtSDT);
-    }
-*/
-
     private void ReEmail()
     {
         //FirebaseAuth auth = FirebaseAuth.getInstance();
