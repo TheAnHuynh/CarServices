@@ -1,6 +1,8 @@
 package d14cqcp01.group5.carservices;
 
-public class DanhGia {
+import java.io.Serializable;
+
+public class DanhGia implements Serializable{
 
     public final static int MOT_SAO = 1;
     public final static int HAI_SAO = 2;

@@ -14,10 +14,10 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent main = new Intent(SplashScreenActivity.this,QuanLiXeKhachActivity.class);
+                Intent main = new Intent(SplashScreenActivity.this,LoginActivity.class);
                 startActivity(main);
                 finish();
             }
-        },2000);
+        },1000);
     }
 }

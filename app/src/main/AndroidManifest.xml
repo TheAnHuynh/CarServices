@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="d14cqcp01.group5.carservices">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,8 +23,11 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".QuanLiXeKhachActivity"></activity>
-        <activity android:name=".DangKyTaiKhoanActivity"></activity>
+        <activity android:name=".LoginActivity"/>
+        <activity android:name=".QuanLiXeKhachActivity" />
+        <activity android:name=".DangKyTaiKhoanActivity" />
+        <activity android:name=".SearchActivity"/>
+        <activity android:name=".DatChoActivity"/>
     </application>
 
 </manifest>
