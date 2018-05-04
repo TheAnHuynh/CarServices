@@ -1,5 +1,6 @@
 package d14cqcp01.group5.carservices;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +18,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class DangKyTaiKhoanActivity extends AppCompatActivity {
@@ -26,7 +30,7 @@ private FirebaseAuth mAuth;
     private final static String TAG = DangKyTaiKhoanActivity.class.getSimpleName();
 
     private Button btnDangki;
-    private ImageView imgAvatar;
+    //private ImageView imgAvatar;
     private EditText edtFullName, edtEmail, edtPassword, edtPhone, edtPasswordConfirm;
 //    NguoiDung Nuser = new NguoiDung();
     
@@ -73,6 +77,7 @@ private FirebaseAuth mAuth;
                 }
 
                 Dangki(email,password,fullName,phoneNumber);
+
             }
         });
     }
@@ -85,7 +90,7 @@ private FirebaseAuth mAuth;
         edtPasswordConfirm = findViewById(R.id.txtRePass);
         edtPhone = findViewById(R.id.txtSDT);
     }
-    private void Dangki(String email, String password, String fullName, String phone ) {
+    private void Dangki(String email, String password, final String fullName, final String phone ) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -94,7 +99,8 @@ private FirebaseAuth mAuth;
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(DangKyTaiKhoanActivity.this, "Đăng kí thành công", Toast.LENGTH_SHORT).show();
                             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                            updateUI(user);
+
+                            updateUI(user,fullName,phone);
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -108,7 +114,21 @@ private FirebaseAuth mAuth;
 
     }
 
-    private void updateUI(FirebaseUser user) {
-        
+    private void updateUI(FirebaseUser user, String fullName , String Phone) {
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(fullName)
+                .build();
+
+        user.updateProfile(profileUpdates)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "User profile updated.");
+                        }
+                    }
+                });
+        DatabaseReference myref = FirebaseDatabase.getInstance().getReference();
+        myref.child("Phone").child(user.getUid()).setValue(Phone);
     }
 }
