@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">CarServices</string>
 
+    <!--Database-->
+    <string name="NODE_COACH">CoachList</string>
+    <string name="NODE_COMPANY">Company</string>
+    <string name="NODE_TICKET">TicketList</string>
+    <string name="NODE_PHONE">Phone</string>
     <!-- Facebook Api-->
-    <string name="facebook_app_id">194919544605668</string>
-    <string name="fb_login_protocol_scheme">fb194919544605668</string>
+    <!--<string name="facebook_app_id">194919544605668</string>-->
+    <!--<string name="fb_login_protocol_scheme">fb194919544605668</string>-->
 
     <!-- layout_dang_ky_tai_khoan.xml-->
     <string name="profile">PROFILE</string>
@@ -105,5 +110,7 @@
 
     <!-- result_item_layout-->
 
-
+    <!-- DatCho-->
+    <string name="currentCarID">CAR_ID</string>
+    <string name="currentCarType">CAR_TYPE</string>
 </resources>

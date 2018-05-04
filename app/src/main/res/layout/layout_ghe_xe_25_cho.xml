@@ -8,139 +8,138 @@
     android:stretchColumns="*">
     <TableRow>
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe25"
+            style="@style/buttonStyle2"
+            android:text="25"/>
+        <Button
+            android:id="@+id/btnGhe24"
             style="@style/buttonStyle2"
             android:text="24"/>
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe23"
             style="@style/buttonStyle2"
             android:text="23"/>
-        <Button
-            android:onClick="xuLyChonGheNgoi"
-            style="@style/buttonStyle2"
-            android:text="22"/>
 
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe22"
             style="@style/buttonStyle2"
-            android:text="21"/>
+            android:text="22"/>
     </TableRow>
     <TableRow>
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe21"
             style="@style/buttonStyle2"
-
-            android:text="20"/>
+            android:text="21"/>
 
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe20"
             style="@style/buttonStyle2"
             android:layout_column="2"
-            android:text="10"/>
+            android:text="20"/>
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe19"
             style="@style/buttonStyle2"
             android:layout_column="3"
             android:text="19"/>
     </TableRow>
     <TableRow>
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe18"
             style="@style/buttonStyle2"
             android:text="18"/>
 
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe17"
             style="@style/buttonStyle2"
             android:layout_column="2"
             android:text="17"/>
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe16"
             style="@style/buttonStyle2"
             android:layout_column="3"
             android:text="16"/>
     </TableRow>
     <TableRow>
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe15"
             style="@style/buttonStyle2"
             android:text="15"/>
 
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe14"
             style="@style/buttonStyle2"
             android:layout_column="2"
             android:text="14"/>
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe13"
             style="@style/buttonStyle2"
             android:layout_column="3"
             android:text="13"/>
     </TableRow>
     <TableRow>
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe12"
             style="@style/buttonStyle2"
             android:text="12"/>
 
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe11"
             style="@style/buttonStyle2"
             android:layout_column="2"
             android:text="11"/>
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe10"
             style="@style/buttonStyle2"
             android:layout_column="3"
-            android:text="09"/>
+            android:text="10"/>
     </TableRow>
     <TableRow>
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe09"
             style="@style/buttonStyle2"
-            android:text="08"/>
+            android:text="09"/>
 
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe08"
             style="@style/buttonStyle2"
             android:layout_column="2"
-            android:text="07"/>
+            android:text="08"/>
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe07"
             style="@style/buttonStyle2"
             android:layout_column="3"
-            android:text="09"/>
+            android:text="07"/>
     </TableRow>
     <TableRow>
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe06"
             style="@style/buttonStyle2"
             android:text="06"/>
 
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe05"
             style="@style/buttonStyle2"
             android:layout_column="2"
             android:text="05"/>
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe04"
             style="@style/buttonStyle2"
             android:layout_column="3"
             android:text="04"/>
     </TableRow>
     <TableRow>
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe03"
             style="@style/buttonStyle2"
             android:text="03"/>
 
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe02"
             style="@style/buttonStyle2"
             android:layout_column="2"
             android:text="02"/>
         <Button
-            android:onClick="xuLyChonGheNgoi"
+            android:id="@+id/btnGhe01"
             style="@style/buttonStyle2"
             android:layout_column="3"
             android:text="01"/>

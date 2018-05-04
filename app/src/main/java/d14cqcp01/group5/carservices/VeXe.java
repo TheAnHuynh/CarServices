@@ -1,28 +1,53 @@
 package d14cqcp01.group5.carservices;
 
 public class VeXe {
-    public static int DA_DAT = -1;
-    public static int CHUA_DAT = 1;
 
-    private String ticketId;
-    private int status;
+    private String id;
+    private long orderTime;
+    private int seatNumber;
+    private String status;
+    private String carId;
 
     public VeXe() {
     }
 
-    public String getTicketId() {
-        return ticketId;
+    public String getId() {
+        return id;
     }
 
-    public void setTicketId(String ticketId) {
-        this.ticketId = ticketId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public int getStatus() {
+    public long getOrderTime() {
+        return orderTime;
+    }
+
+    public void setOrderTime(long orderTime) {
+        this.orderTime = orderTime;
+    }
+
+    public int getSeatNumber() {
+        return seatNumber;
+    }
+
+    public void setSeatNumber(int seatNumber) {
+        this.seatNumber = seatNumber;
+    }
+
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getCarId() {
+        return carId;
+    }
+
+    public void setCarId(String carId) {
+        this.carId = carId;
     }
 }

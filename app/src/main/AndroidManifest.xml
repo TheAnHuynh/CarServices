@@ -25,7 +25,8 @@
 
         <activity android:name=".QuanLiXeKhachActivity" />
         <activity android:name=".DangKyTaiKhoanActivity" />
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".SearchActivity"/>
+        <activity android:name=".DatChoActivity"/>
     </application>
 
 </manifest>

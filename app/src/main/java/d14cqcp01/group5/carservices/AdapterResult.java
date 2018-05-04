@@ -2,6 +2,7 @@ package d14cqcp01.group5.carservices;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AdapterResult extends ArrayAdapter {
@@ -46,10 +48,10 @@ public class AdapterResult extends ArrayAdapter {
         XeKhach xe = list.get(position);
         txtCompanyName.setText(xe.getCompanyId());
         txtFromTo.setText(xe.getFrom() + " " + xe.getTo());
-        String []temp1 = xe.getTimeStart().split(" ");
-        String startTime = temp1[1];
-        String []temp2 = xe.getTimeEnd().split(" ");
-        String endTime = temp2[1];
+
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        String startTime = sdf.format(new Date(xe.getTimeStart()));
+        String endTime = sdf.format(new Date(xe.getTimeEnd()));
         txtTime.setText("Thời gian: " + startTime + "-" + endTime);
         txtStars.setText(String.valueOf(xe.getStars()));
 
@@ -57,7 +59,8 @@ public class AdapterResult extends ArrayAdapter {
             @Override
             public void onClick(View view) {
                 //TODO: Xem chi tiết xe khách
-
+                Intent intent = new Intent(activity, DatChoActivity.class);
+                activity.startActivity(intent);
             }
         });
 

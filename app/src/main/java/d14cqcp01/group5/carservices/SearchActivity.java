@@ -17,7 +17,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,10 +51,10 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         databaseReference = FirebaseDatabase.getInstance().getReference();
-
+        makeDummyData();
         addContols();
         addEvents();
-        //makeDummyData();
+
     }
 
     private void makeDummyData() {
@@ -68,8 +67,9 @@ public class SearchActivity extends AppCompatActivity {
         xe1.setStars(0.0f);
         xe1.setType(XeKhach.XE_GIUONG_NAM);
         xe1.setJourney("50 Nguyễn Chí Thanh, P.2, Q.10, Hồ Chí Minh - 357 Nguyễn Thị Thập, Phường 6, Mỹ Tho,Tiền Giang");
-        xe1.setTimeStart("02-05-2018 06:00");
-        xe1.setTimeEnd("02-05-2018 07:45");
+
+        xe1.setTimeStart(new Date(2018,5,5,6,0).getTime());
+        xe1.setTimeEnd(new Date(2018,5,5,7,45).getTime());
         xe1.setVacantSeats(39);
         String id1 = xe1.getFrom() + "-" + xe1.getTo() +"-"+ xe1.getTimeStart() + "-" + xe1.getCompanyId();
         xe1.setId(id1);
@@ -84,8 +84,8 @@ public class SearchActivity extends AppCompatActivity {
         xe2.setType(XeKhach.XE_16_CHO);
         //Date(int year, int month, int date, int hrs, int min)
         xe2.setJourney("Số ô 11 Lô NP4, Khu phố 2, P. Phú Hòa Đại lộ Bình Dương,Thủ Dầu Một, Bình Dương - Long Thành, Đồng Nai");
-        xe2.setTimeStart("02-05-2018 08:20");
-        xe2.setTimeEnd("02-05-2018 09:00");
+        xe2.setTimeStart(new Date(2018,5,5,8,20).getTime());
+        xe2.setTimeEnd(new Date(2018,5,5,9,30).getTime());
         xe2.setVacantSeats(42);
         String id2 = xe2.getFrom() + "-" + xe2.getTo() +"-"+ xe2.getTimeStart() + "-" + xe2.getCompanyId();
         xe2.setId(id2);
@@ -96,11 +96,11 @@ public class SearchActivity extends AppCompatActivity {
         xe3.setTo("Hà Nội");
         xe3.setPrice(114000);
         xe3.setStars(0.0f);
-        xe3.setType(XeKhach.XE_24_CHO);
+        xe3.setType(XeKhach.XE_25_CHO);
         //Date(int year, int month, int date, int hrs, int min)
         xe3.setJourney("Bến Xe Bãi Cháy,504 Trần Phú,Cẩm Phả,Quảng Ninh - Bến Xe Mỹ Đình,Quầy vé 9, 10 - Bến xe Mỹ Đình - Nam Từ Liêm - Hà Nội.");
-        xe3.setTimeStart("02-05-2018 05:00");
-        xe3.setTimeEnd("02- 5-2018 07:30");
+        xe3.setTimeStart(new Date(2018,5,5,5,0).getTime());
+        xe3.setTimeEnd(new Date(2018,5,5,7,30).getTime());
         xe3.setVacantSeats(16);
         String id3 = xe3.getFrom() + "-" + xe3.getTo() +"-"+ xe3.getTimeStart() + "-" + xe3.getCompanyId();
         xe3.setId(id3);
@@ -114,21 +114,21 @@ public class SearchActivity extends AppCompatActivity {
         xe4.setStars(0.0f);
         xe4.setType(XeKhach.XE_GIUONG_NAM);
         xe4.setJourney("50 Nguyễn Chí Thanh, P.2, Q.10, Hồ Chí Minh - 357 Nguyễn Thị Thập, Phường 6, Mỹ Tho,Tiền Giang");
-        xe4.setTimeStart("02-05-2018 08:00");
-        xe4.setTimeEnd("02-05-2018 09:45");
+        xe4.setTimeStart(new Date(2018,5,5,8,0).getTime());
+        xe4.setTimeEnd(new Date(2018,5,5,9,45).getTime());
         xe4.setVacantSeats(39);
         String id4 = xe4.getFrom() + "-" + xe4.getTo() +"-"+ xe4.getTimeStart() + "-" + xe4.getCompanyId();
         xe4.setId(id4);
 
-        xeKhachArrayList.add(xe1);
-        xeKhachArrayList.add(xe2);
-        xeKhachArrayList.add(xe3);
-        xeKhachArrayList.add(xe4);
-        adapterResult.notifyDataSetChanged();
-//        databaseReference.child("CoachList").child(xe1.getId()).setValue(xe1);
-//        databaseReference.child("CoachList").child(xe2.getId()).setValue(xe2);
-//        databaseReference.child("CoachList").child(xe3.getId()).setValue(xe3);
-//        databaseReference.child("CoachList").child(xe4.getId()).setValue(xe4);
+//        xeKhachArrayList.add(xe1);
+//        xeKhachArrayList.add(xe2);
+//        xeKhachArrayList.add(xe3);
+//        xeKhachArrayList.add(xe4);
+//        adapterResult.notifyDataSetChanged();
+        databaseReference.child("CoachList").child(xe1.getId()).setValue(xe1);
+        databaseReference.child("CoachList").child(xe2.getId()).setValue(xe2);
+        databaseReference.child("CoachList").child(xe3.getId()).setValue(xe3);
+        databaseReference.child("CoachList").child(xe4.getId()).setValue(xe4);
 //        NhaXe thinhPhat = new NhaXe("Thịnh Phát");
 //        NhaXe ducPhat = new NhaXe("Đức Phát");
 //        NhaXe hoangLong = new NhaXe("Hoàng Long");
@@ -232,13 +232,10 @@ public class SearchActivity extends AppCompatActivity {
                     return;
                 }
 
-                Date date = new Date(year,month,day,hour, minute);
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-                String searchString1 = start + "-" + end + "-" + sdf.format(date);
-                String searchString2 = start + "-" + end;
+                Date date = new Date(year,month,day,0, 0);
+                String searchString1 = start + "-" + end + "-" + date.toString();
                 Log.d(TAG,"Search String: " + searchString1);
                 Query myCarQuery = databaseReference.child("CoachList").orderByKey().startAt(searchString1);
-
                 myCarQuery.addValueEventListener(new ValueEventListener() {
                     @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {

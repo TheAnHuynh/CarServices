@@ -12,7 +12,7 @@ import java.util.Locale;
 public class XeKhach {
     public final static String XE_GIUONG_NAM = "Xe gường nằm"; // 39 chỗ
     public final static String XE_16_CHO = "XE 16 chỗ";
-    public final static String XE_24_CHO = "Xe 24 chỗ";
+    public final static String XE_25_CHO = "Xe 25 chỗ";
 
     private String id;
     private String companyId;
@@ -21,8 +21,8 @@ public class XeKhach {
     private String journey;
     private String from;
     private String to;
-    private String timeStart;
-    private String timeEnd;
+    private long timeStart;
+    private long timeEnd;
 
     private float stars;
 
@@ -81,19 +81,19 @@ public class XeKhach {
         this.to = to;
     }
 
-    public String getTimeStart() {
+    public long getTimeStart() {
         return timeStart;
     }
 
-    public void setTimeStart(String timeStart) {
+    public void setTimeStart(long timeStart) {
         this.timeStart = timeStart;
     }
 
-    public String getTimeEnd() {
+    public long getTimeEnd() {
         return timeEnd;
     }
 
-    public void setTimeEnd(String timeEnd) {
+    public void setTimeEnd(long timeEnd) {
         this.timeEnd = timeEnd;
     }
 
@@ -128,30 +128,6 @@ public class XeKhach {
     public void setTicketList(ArrayList<String> ticketList) {
         this.ticketList = ticketList;
     }
-    public long getStartTimeInMilliseconds(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd - MM - yyyy HH:mm");
-        try {
-            Date date = sdf.parse(timeStart);
-            long millis = date.getTime();
-            return millis;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return new Date().getTime();
-    }
-
-    public long getTimeEndInMilliseconds(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd - MM - yyyy HH:mm");
-        try {
-            Date date = sdf.parse(timeEnd);
-            long millis = date.getTime();
-            return millis;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return new Date().getTime();
-    }
-
 
     @Override
     public String toString() {
@@ -160,8 +136,8 @@ public class XeKhach {
                 "From: " + getFrom() + "\n" +
                 "To: " + getTo() + "\n" +
                 "Journey:  " + getJourney() + "\n" +
-                "Time Start: " + getTimeStart().toString() + "\n" +
-                "Time End: " + getTimeEnd().toString() + "\n" +
+                "Time Start: " + getTimeStart() + "\n" +
+                "Time End: " + getTimeEnd() + "\n" +
                 "Price: " + getPrice() + "\n" +
                 "Type: " + getType() + "\n" +
                 "Stars: " + getStars() + "\n" +
