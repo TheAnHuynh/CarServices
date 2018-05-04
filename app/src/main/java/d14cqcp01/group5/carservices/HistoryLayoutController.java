@@ -10,48 +10,88 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryLayoutController extends AppCompatActivity {
-
     TabLayout tabLayout;
     ViewPager viewPager;
-    ArrayList<TicketOfHistoryLayoutModel> arrTick = new ArrayList<TicketOfHistoryLayoutModel>();
+    ArrayList<TicketOfHistoryLayoutModel> arrTick1 = new ArrayList<TicketOfHistoryLayoutModel>();
+    ArrayList<TicketOfHistoryLayoutModel> arrTick2 = new ArrayList<TicketOfHistoryLayoutModel>();
+    ArrayList<TicketOfHistoryLayoutModel> arrTick3 = new ArrayList<TicketOfHistoryLayoutModel>();
     ListView lvTick = null;
-    ArrayListItemAdapterModel adapter = null;
+    ArrayListItemAdapterModel adapter1 = null;
+    ArrayListItemAdapterModel adapter2 = null;
+    ArrayListItemAdapterModel adapter3 = null;
+    User user;
+    String username = "U0";
     NestedScrollView scrollView;
+    public DatabaseReference mData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.history_layout);
+        setContentView(R.layout.layout_lich_su_dat_ve);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         scrollView = (NestedScrollView) findViewById(R.id.nestscrollview);
         scrollView.setFillViewport(true);
-        TicketOfHistoryLayoutModel tick = new TicketOfHistoryLayoutModel("pt", "b", "Phương Trang", "Mạnh Hùng", 2,
-                "Từ: Sài Gòn", "Đến: Hà Nội", "Giờ đi: 17:00:00", "Giờ đến: 17:00:00 18/02/2018",
-                "Tổng chi phí: ", "đ 100.000", "Thanh Toán");
-        arrTick.add(tick);
-        arrTick.add(tick);
-        adapter = new ArrayListItemAdapterModel(this, R.layout.item_tabpage_layout, arrTick);
+        adapter1 = new ArrayListItemAdapterModel(this, R.layout.layout_tabpage_lich_su_dat_ve_item, arrTick1);
+        adapter2 = new ArrayListItemAdapterModel(this, R.layout.layout_tabpage_lich_su_dat_ve_item, arrTick2);
+        adapter3 = new ArrayListItemAdapterModel(this, R.layout.layout_tabpage_lich_su_dat_ve_item, arrTick3);
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
+        mData = FirebaseDatabase.getInstance().getReference();
+        mData.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                DataSnapshot S = (dataSnapshot.child("UserList/"+ username +"/ticketList"));
+                for (DataSnapshot item: S.getChildren()) {
+                    user = dataSnapshot.child(username).getValue(User.class);
+                    TicketListModel T = dataSnapshot.child("TicketList/" + item.getValue(String.class)).getValue(TicketListModel.class);
+                    CoachListModel C = dataSnapshot.child("CoachList/" + T.getIdCoach()).getValue(CoachListModel.class);
+                    if (T.getStatus() == "Chờ thanh toán"){
+                        arrTick1.add(new TicketOfHistoryLayoutModel(C,T));
+                    }else if (T.getStatus() == "Đã thanh toán"){
+                        arrTick2.add(new TicketOfHistoryLayoutModel(C,T));
+                    }else if (T.getStatus() == "Đã hoàn thành"){
+                        arrTick3.add(new TicketOfHistoryLayoutModel(C,T));
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+
         setupTabIcons();
 
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        PageChoXuLiOfHistoryLayoutModel Fragment = new PageChoXuLiOfHistoryLayoutModel();
-        Fragment.setAdapter(adapter);
-        pagerAdapter.addFragment(Fragment, "Chờ xử lí");
-        pagerAdapter.addFragment(new PageChoXuLiOfHistoryLayoutModel(), "Đang sử dụng");
-        pagerAdapter.addFragment(new PageChoXuLiOfHistoryLayoutModel(), "Đã thành công");
-        pagerAdapter.addFragment(new PageChoXuLiOfHistoryLayoutModel(), "Đã hủy");
+        PageChoXuLiOfHistoryLayoutModel Fragment1 = new PageChoXuLiOfHistoryLayoutModel();
+        PageChoXuLiOfHistoryLayoutModel Fragment2 = new PageChoXuLiOfHistoryLayoutModel();
+        PageChoXuLiOfHistoryLayoutModel Fragment3 = new PageChoXuLiOfHistoryLayoutModel();
+        Fragment1.setAdapter(adapter1);
+        Fragment2.setAdapter(adapter2);
+        Fragment3.setAdapter(adapter3);
+        pagerAdapter.addFragment(Fragment1, "Chờ xử lí");
+        pagerAdapter.addFragment(Fragment2, "Đang sử dụng");
+        pagerAdapter.addFragment(Fragment3, "Đã thành công");
         viewPager.setAdapter(pagerAdapter);
         viewPager.setOffscreenPageLimit(4);
+//        pagerAdapter.getItem(0).getActivity().getTitle()
     }
 
     private void setupTabIcons() {

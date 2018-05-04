@@ -92,7 +92,7 @@
             android:id="@+id/line2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="10dp"
             android:background="?attr/colorButtonNormal"
             app:layout_constraintTop_toBottomOf="@+id/to" />
 
@@ -105,35 +105,51 @@
             android:text="moreinfo"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/button" />
+            app:layout_constraintTop_toTopOf="@+id/buttonPrime" />
 
         <TextView
             android:id="@+id/moreinfosupport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:text="moreinfosupport"
-            app:layout_constraintBottom_toBottomOf="@+id/moreinfo"
-            app:layout_constraintStart_toEndOf="@+id/moreinfo" />
+            app:layout_constraintStart_toStartOf="@+id/moreinfo"
+            app:layout_constraintTop_toBottomOf="@+id/moreinfo" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonPrime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="4dp"
             android:text="Button"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/line2" />
 
         <View
             android:id="@+id/line4"
             android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:layout_marginTop="15dp"
+            android:layout_height="9dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:background="?attr/colorButtonNormal"
-            app:layout_constraintTop_toBottomOf="@+id/button" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/moreinfosupport" />
+
+        <Button
+            android:id="@+id/buttonOption"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="3dp"
+            android:text="Button"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/buttonPrime"
+            app:layout_constraintTop_toTopOf="@+id/buttonPrime" />
     </android.support.constraint.ConstraintLayout>
 
 

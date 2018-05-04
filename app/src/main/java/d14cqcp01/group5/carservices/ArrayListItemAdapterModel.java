@@ -53,20 +53,35 @@ public class ArrayListItemAdapterModel extends ArrayAdapter<TicketOfHistoryLayou
                     convertView.findViewById(R.id.moreinfo);
             final TextView m2 = (TextView)
                     convertView.findViewById(R.id.moreinfosupport);
-            final TextView btn = (Button)
-                    convertView.findViewById(R.id.button);
+            final Button btn1 = (Button)
+                    convertView.findViewById(R.id.buttonPrime);
+            final Button btn2 = (Button)
+                    convertView.findViewById(R.id.buttonOption);
 
             final TicketOfHistoryLayoutModel tick = myArray.get(position);
 
-            b.setText(tick.getBrand());
-            r.setText(Float.toString(tick.getRating()) + "/5.0");
-            f.setText(tick.getFrom());
-            t.setText(tick.getTo());
-            s.setText(tick.getTimeStart());
-            e.setText(tick.getTimeEnd());
-            m1.setText(tick.getMoreinfo());
-            m2.setText(tick.getMoreinfosupport());
-            btn.setText(tick.getButtonInfo());
+            b.setText(tick.Coach.getCompanyId());
+            r.setText(Float.toString(tick.Coach.getStars()) + "/5.0");
+            f.setText(tick.Coach.getFrom());
+            t.setText(tick.Coach.getTo());
+            s.setText(tick.Coach.getTimeStart());
+            e.setText(tick.Coach.getTimeEnd());
+            m2.setText("Ghế: " + tick.Ticket.getSeatNumber());
+            if (tick.Ticket.getStatus() == "Chờ thanh toán"){
+                btn1.setText("THANH TOÁN");
+                btn2.setVisibility(View.VISIBLE);
+                btn2.setText("HỦY VÉ");
+                m1.setText("Giá: " + tick.Coach.getPrice());
+            }else if (tick.Ticket.getStatus() == "Đã thanh toán"){
+                btn2.setVisibility(View.INVISIBLE);
+                btn1.setText("CHI TIẾT");
+                m1.setText("Đã thanh toán");
+            }else if (tick.Ticket.getStatus() == "Đã hoàn thành") {
+                m1.setText("Đã hoàn thành");
+                btn1.setText("ĐÁNH GIÁ");
+                btn2.setVisibility(View.INVISIBLE);
+            }
+
         }
         return convertView;
     }
