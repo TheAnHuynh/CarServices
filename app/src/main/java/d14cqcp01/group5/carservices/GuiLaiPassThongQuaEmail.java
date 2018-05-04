@@ -20,7 +20,7 @@ public class GuiLaiPassThongQuaEmail extends AppCompatActivity {
     private final static String TAG = "GuiLaiPassThongQuaEmail";
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     Button btnDangki;
-    EditText email,hoten,pass,repass,sdt;
+    EditText email;
     // NguoiDung Nuser = new NguoiDung();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
