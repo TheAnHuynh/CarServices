@@ -12,7 +12,7 @@
         <item name="android:colorAccent">@color/secondaryColor</item>
         <item name="android:buttonStyle">@style/buttonStyle</item>
         <item name="android:textViewStyle">@style/primaryLargeTextStyle</item>
-        <item name="editTextStyle">@style/editTextStyle</item>
+
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:buttonStyleToggle">@style/toggleButtonStyle</item>
 

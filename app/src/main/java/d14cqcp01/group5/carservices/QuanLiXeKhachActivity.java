@@ -14,7 +14,7 @@ public class QuanLiXeKhachActivity extends AppCompatActivity {
     private Button btnbtnSearhPassengerCar;
     private Button btnBookingHistory;
     private Button btnUserInfo;
-
+    private Button btnDangXuat;
     private FirebaseUser currentUser;
 
     @Override
@@ -30,6 +30,7 @@ public class QuanLiXeKhachActivity extends AppCompatActivity {
         btnbtnSearhPassengerCar = findViewById(R.id.btnSearhPassengerCar);
         btnBookingHistory = findViewById(R.id.btnBookingHistory);
         btnUserInfo = findViewById(R.id.btnUserInfo);
+        btnDangXuat = findViewById(R.id.btnDangXuat);
     }
 
     private void addEvents() {
@@ -62,6 +63,16 @@ public class QuanLiXeKhachActivity extends AppCompatActivity {
                     //TODO: Chuyển hướng đến giao diện đăng nhập
 
                 }
+            }
+        });
+
+        btnDangXuat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(QuanLiXeKhachActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
