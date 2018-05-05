@@ -18,19 +18,19 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent main = new Intent(SplashScreenActivity.this,QuanLiXeKhachActivity.class);
-                startActivity(main);
-                finish();
-//                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-//                if(currentUser != null){
-//                    Intent main = new Intent(SplashScreenActivity.this,QuanLiXeKhachActivity.class);
-//                    startActivity(main);
-//                    finish();
-//                }else {
-//                    Intent main = new Intent(SplashScreenActivity.this,LoginActivity.class);
-//                    startActivity(main);
-//                    finish();
-//                }
+//                Intent main = new Intent(SplashScreenActivity.this,QuanLiXeKhachActivity.class);
+//                startActivity(main);
+//                finish();
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                if(currentUser != null){
+                    Intent main = new Intent(SplashScreenActivity.this,QuanLiXeKhachActivity.class);
+                    startActivity(main);
+                    finish();
+                }else {
+                    Intent main = new Intent(SplashScreenActivity.this,LoginActivity.class);
+                    startActivity(main);
+                    finish();
+                }
 
             }
         },1000);

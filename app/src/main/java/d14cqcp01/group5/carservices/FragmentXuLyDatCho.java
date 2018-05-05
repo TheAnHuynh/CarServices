@@ -310,4 +310,12 @@ public class FragmentXuLyDatCho extends Fragment implements View.OnClickListener
 //    public List<String> getCurrentSelectedSeat() {
 //
 //    }
+    public ArrayList<String> getSelectedSeatNumbers(){
+        ArrayList<String> arrayList = new ArrayList<>();
+        for(String keySet: currentSelectedSeat.keySet()){
+            arrayList.add(keySet);
+            Log.d("FragmentXuLyDatCho","Selected seat: " + keySet);
+        }
+        return arrayList;
+    }
 }

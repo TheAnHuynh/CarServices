@@ -32,19 +32,21 @@
                 android:src="@mipmap/bus" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/companyText"
+                style="@style/primaryLargeTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/primaryLargeTextStyle"
-                android:text="Nhà xe 1"
-                android:textAlignment="center"/>
+                android:text=""
+                android:textColor="#3366CC"
+                android:textSize="60dp"
+                android:textAlignment="center" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical"
-                android:weightSum="3">
+                android:weightSum="6">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -61,11 +63,10 @@
                         android:layout_weight="2"/>
 
                     <TextView
-                        android:id="@+id/textView7"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="6"
-                        android:text="Xe giường nằm 16 chỗ" />
+                        android:id="@+id/typeText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -82,11 +83,11 @@
                         android:text="Giá vé: " />
 
                     <TextView
-                        android:id="@+id/textView8"
+                        android:id="@+id/priceText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="6"
-                        android:text="5000VNĐ" />
+                        android:text="" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -100,18 +101,86 @@
                         android:id="@+id/textView4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="4"
-                        android:text="Thời gian khởi hành:" />
+                        android:layout_weight="3"
+                        android:text="Thời gian đi:" />
 
                     <TextView
-                        android:id="@+id/textView9"
+                        android:id="@+id/timeStartText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:text="6h" />
+                        android:layout_weight="4"
+                        android:text="" />
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="7">
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="Thời gian đến:" />
+
+                    <TextView
+                        android:id="@+id/timeEndText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:text="" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="7">
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:text="Điểm đi:" />
+
+                    <TextView
+                        android:id="@+id/fromText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:text="" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="7">
+
+                    <TextView
+                        android:id="@+id/textView13"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:text="Điểm đến:"
+                        android:textColor="@color/primaryTextColor" />
+
+                    <TextView
+                        android:id="@+id/toText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:text="" />
+
+                </LinearLayout>
             </LinearLayout>
 
             <TextView
@@ -121,12 +190,12 @@
                 android:text="Lộ trình chi tiết:" />
 
             <TextView
-                android:id="@+id/imageView2"
+                android:id="@+id/journeyText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <ToggleButton
-                android:id="@+id/toggleButton"
+            <Button
+                android:id="@+id/SetButton"
                 style="@style/circleButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -135,31 +204,7 @@
                 android:layout_marginBottom="20dp"
                 android:checked="false"
                 android:singleLine="false"
-                android:textOff="ĐẶT XE"
-                android:textOn="HỦY ĐẶT XE" />
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ý kiến phản hồi:" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="13"
-                android:orientation="horizontal">
-                <EditText
-                    android:id="@+id/editText4"
-                    android:layout_weight="10"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent" />
-
-                <Button
-                    android:id="@+id/button"
-                    android:layout_weight="3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Gửi" />
-            </LinearLayout>
+                android:text="ĐẶT XE" />
 
 
         </LinearLayout>
