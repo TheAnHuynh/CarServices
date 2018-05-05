@@ -57,7 +57,7 @@ public class QuanLiXeKhachActivity extends AppCompatActivity {
             public void onClick(View view) {
                 currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 if(currentUser != null){
-                    //TODO:Hiện thông tin người dùng.
+
                 }
                 else{
                     //TODO: Chuyển hướng đến giao diện đăng nhập
