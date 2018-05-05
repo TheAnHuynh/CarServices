@@ -43,9 +43,34 @@ public class HistoryLayoutController extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         scrollView = (NestedScrollView) findViewById(R.id.nestscrollview);
         scrollView.setFillViewport(true);
-        adapter1 = new ArrayListItemAdapterModel(this, R.layout.layout_tabpage_lich_su_dat_ve_item, arrTick1);
-        adapter2 = new ArrayListItemAdapterModel(this, R.layout.layout_tabpage_lich_su_dat_ve_item, arrTick2);
-        adapter3 = new ArrayListItemAdapterModel(this, R.layout.layout_tabpage_lich_su_dat_ve_item, arrTick3);
+        adapter1 = new ArrayListItemAdapterModel
+                (this, R.layout.layout_tabpage_lich_su_dat_ve_item, arrTick1,
+                        new ArrayListItemAdapterModel.OnListener(){
+
+                            @Override
+                            public void onDetail() {
+
+                                // Nhảy view
+
+                            }
+                        });
+        adapter2 = new ArrayListItemAdapterModel
+                (this, R.layout.layout_tabpage_lich_su_dat_ve_item, arrTick2,
+                        new ArrayListItemAdapterModel.OnListener() {
+                            @Override
+                            public void onDetail() {
+
+                            }
+                        });
+        adapter3 = new ArrayListItemAdapterModel
+                (this, R.layout.layout_tabpage_lich_su_dat_ve_item, arrTick3,
+                        new ArrayListItemAdapterModel.OnListener() {
+                            @Override
+                            public void onDetail() {
+                                
+                            }
+                        });
+
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
         mData = FirebaseDatabase.getInstance().getReference();
@@ -87,7 +112,7 @@ public class HistoryLayoutController extends AppCompatActivity {
         Fragment2.setAdapter(adapter2);
         Fragment3.setAdapter(adapter3);
         pagerAdapter.addFragment(Fragment1, "Chờ xử lí");
-        pagerAdapter.addFragment(Fragment2, "Đang sử dụng");
+        pagerAdapter.addFragment(Fragment2, "Đã thanh toán");
         pagerAdapter.addFragment(Fragment3, "Đã thành công");
         viewPager.setAdapter(pagerAdapter);
         viewPager.setOffscreenPageLimit(4);

@@ -20,13 +20,15 @@ public class ArrayListItemAdapterModel extends ArrayAdapter<TicketOfHistoryLayou
     Activity context=null;
     ArrayList<TicketOfHistoryLayoutModel> myArray=null;
     int layoutId;
+    private OnListener CallBack;
     public ArrayListItemAdapterModel(Activity context,
                                      int layoutId,
-                                     ArrayList<TicketOfHistoryLayoutModel>arr) {
+                                     ArrayList<TicketOfHistoryLayoutModel>arr, OnListener callback) {
         super(context, layoutId, arr);
         this.context=context;
         this.layoutId=layoutId;
         this.myArray=arr;
+        this.CallBack = callback;
     }
     public View getView(int position, View convertView,
                         ViewGroup parent) {
@@ -75,6 +77,12 @@ public class ArrayListItemAdapterModel extends ArrayAdapter<TicketOfHistoryLayou
             }else if (tick.Ticket.getStatus() == "Đã thanh toán"){
                 btn2.setVisibility(View.INVISIBLE);
                 btn1.setText("CHI TIẾT");
+                btn1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        CallBack.onDetail();
+                    }
+                });
                 m1.setText("Đã thanh toán");
             }else if (tick.Ticket.getStatus() == "Đã hoàn thành") {
                 m1.setText("Đã hoàn thành");
@@ -84,5 +92,9 @@ public class ArrayListItemAdapterModel extends ArrayAdapter<TicketOfHistoryLayou
 
         }
         return convertView;
+    }
+
+    public interface OnListener{
+        void onDetail();
     }
 }
