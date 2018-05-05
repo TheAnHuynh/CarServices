@@ -26,7 +26,7 @@ public class PageChoXuLiOfHistoryLayoutModel extends Fragment {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.tabpage_ofhistory_layout, null);
+            View view = inflater.inflate(R.layout.layout_tabpage_lich_su_dat_ve, null);
 
             ListView lv = (ListView) view.findViewById(R.id.listView);
             lv.setAdapter(adapter);
