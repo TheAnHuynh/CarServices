@@ -22,16 +22,20 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class FragmentXuLyDatCho extends Fragment implements View.OnClickListener{
     private final static String TAG = "FragmentXuLyDatCho";
     private String carId;
     private String carType;
     private DatabaseReference myRef;
-    private XeKhach car;
+//    private XeKhach car;
+    private int numOfTicket;
 
     private ArrayList<Button> arrButton;
+    private HashMap<String,Button> currentSelectedSeat;
     private TicketIDMap ticketIdMap;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,6 +46,8 @@ public class FragmentXuLyDatCho extends Fragment implements View.OnClickListener
         Log.d(TAG,"Car Type:" + carType);
         View viewSoDoGheXe;
         if(!carType.isEmpty() && !carId.isEmpty()){
+            numOfTicket = 0;
+            currentSelectedSeat = new HashMap<>();
             DatabaseReference ticketListRef = FirebaseDatabase.getInstance().getReference(getString(R.string.NODE_TICKET));
             arrButton = new ArrayList<>();
             ticketIdMap = new TicketIDMap(new HashMap<String, String>(),arrButton,ticketListRef);
@@ -283,31 +289,25 @@ public class FragmentXuLyDatCho extends Fragment implements View.OnClickListener
         }
     }
 
-
-
-
-//    public void xuLyChonGheNgoi(View v){
-//
-//        Toast.makeText(getContext(),seat.getText(),Toast.LENGTH_SHORT).show();
-//        myRef.child("CoachList").child(carId).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-//    }
-
     @Override
     public void onClick(View view) {
         Button seat = (Button) view;
-        Toast.makeText(getContext(),seat.getText(), Toast.LENGTH_SHORT).show();
-
-
+        String seatNummber = (String) seat.getText();
+//        Toast.makeText(getContext(),seat.getText(), Toast.LENGTH_SHORT).show();
+        if(currentSelectedSeat.size() < 7){
+            if(currentSelectedSeat.containsKey(seatNummber)){
+                currentSelectedSeat.remove(seatNummber);
+                seat.setBackground(getActivity().getResources().getDrawable(R.drawable.button_selector_2));
+            }else{
+                currentSelectedSeat.put(seatNummber,seat);
+                seat.setBackground(getActivity().getResources().getDrawable(R.drawable.seat_is_choosed));
+            }
+        }else{
+            Toast.makeText(getContext(),"Bạn chỉ đươc chọn tối đa 6 ghế.", Toast.LENGTH_SHORT).show();
+        }
     }
+//
+//    public List<String> getCurrentSelectedSeat() {
+//
+//    }
 }

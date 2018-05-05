@@ -41,7 +41,8 @@ public class SearchActivity extends AppCompatActivity {
     private ListView lvPassengerCars;
     private Button btnDatePicker,btnTimePicker,btnSearch;
 
-    private int day, month, year, hour, minute;
+//    private int day, month, year;
+//    private int hour, minute;
 
     private AdapterResult adapterResult;
     private ArrayList<XeKhach> xeKhachArrayList;
@@ -58,7 +59,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void makeDummyData() {
-//        SimpleDateFormat sdf = new SimpleDateFormat();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         XeKhach xe1 = new XeKhach();
         xe1.setCompanyId("Hoàng Long");
         xe1.setFrom("TP HCM");
@@ -68,10 +69,11 @@ public class SearchActivity extends AppCompatActivity {
         xe1.setType(XeKhach.XE_GIUONG_NAM);
         xe1.setJourney("50 Nguyễn Chí Thanh, P.2, Q.10, Hồ Chí Minh - 357 Nguyễn Thị Thập, Phường 6, Mỹ Tho,Tiền Giang");
 
-        xe1.setTimeStart(new Date(2018,5,5,6,0).getTime());
-        xe1.setTimeEnd(new Date(2018,5,5,7,45).getTime());
+        xe1.setTimeStart(new Date(2018-1900,4,7,6,0).getTime());
+        xe1.setTimeEnd(new Date(2018-1900,4,7,7,45).getTime());
         xe1.setVacantSeats(39);
-        String id1 = xe1.getFrom() + "-" + xe1.getTo() +"-"+ xe1.getTimeStart() + "-" + xe1.getCompanyId();
+
+        String id1 = xe1.getFrom() + "-" + xe1.getTo() +"-"+ sdf.format(xe1.getTimeStart()) + "-" + xe1.getCompanyId();
         xe1.setId(id1);
 
 
@@ -84,10 +86,11 @@ public class SearchActivity extends AppCompatActivity {
         xe2.setType(XeKhach.XE_16_CHO);
         //Date(int year, int month, int date, int hrs, int min)
         xe2.setJourney("Số ô 11 Lô NP4, Khu phố 2, P. Phú Hòa Đại lộ Bình Dương,Thủ Dầu Một, Bình Dương - Long Thành, Đồng Nai");
-        xe2.setTimeStart(new Date(2018,5,5,8,20).getTime());
-        xe2.setTimeEnd(new Date(2018,5,5,9,30).getTime());
+        xe2.setTimeStart(new Date(2018-1900,4,7,8,20).getTime());
+        xe2.setTimeEnd(new Date(2018-1900,4,7,9,30).getTime());
         xe2.setVacantSeats(42);
-        String id2 = xe2.getFrom() + "-" + xe2.getTo() +"-"+ xe2.getTimeStart() + "-" + xe2.getCompanyId();
+
+        String id2 = xe2.getFrom() + "-" + xe2.getTo() +"-"+ sdf.format(xe2.getTimeStart()) + "-" + xe2.getCompanyId();
         xe2.setId(id2);
 
         XeKhach xe3 = new XeKhach();
@@ -99,10 +102,10 @@ public class SearchActivity extends AppCompatActivity {
         xe3.setType(XeKhach.XE_25_CHO);
         //Date(int year, int month, int date, int hrs, int min)
         xe3.setJourney("Bến Xe Bãi Cháy,504 Trần Phú,Cẩm Phả,Quảng Ninh - Bến Xe Mỹ Đình,Quầy vé 9, 10 - Bến xe Mỹ Đình - Nam Từ Liêm - Hà Nội.");
-        xe3.setTimeStart(new Date(2018,5,5,5,0).getTime());
-        xe3.setTimeEnd(new Date(2018,5,5,7,30).getTime());
+        xe3.setTimeStart(new Date(2018-1900,4,7,5,0).getTime());
+        xe3.setTimeEnd(new Date(2018-1900,4,7,7,30).getTime());
         xe3.setVacantSeats(16);
-        String id3 = xe3.getFrom() + "-" + xe3.getTo() +"-"+ xe3.getTimeStart() + "-" + xe3.getCompanyId();
+        String id3 = xe3.getFrom() + "-" + xe3.getTo() +"-"+ sdf.format(xe3.getTimeStart()) + "-" + xe3.getCompanyId();
         xe3.setId(id3);
 
 
@@ -114,10 +117,10 @@ public class SearchActivity extends AppCompatActivity {
         xe4.setStars(0.0f);
         xe4.setType(XeKhach.XE_GIUONG_NAM);
         xe4.setJourney("50 Nguyễn Chí Thanh, P.2, Q.10, Hồ Chí Minh - 357 Nguyễn Thị Thập, Phường 6, Mỹ Tho,Tiền Giang");
-        xe4.setTimeStart(new Date(2018,5,5,8,0).getTime());
-        xe4.setTimeEnd(new Date(2018,5,5,9,45).getTime());
+        xe4.setTimeStart(new Date(2018-1900,4,7,8,0).getTime());
+        xe4.setTimeEnd(new Date(2018-1900,4,7,9,45).getTime());
         xe4.setVacantSeats(39);
-        String id4 = xe4.getFrom() + "-" + xe4.getTo() +"-"+ xe4.getTimeStart() + "-" + xe4.getCompanyId();
+        String id4 = xe4.getFrom() + "-" + xe4.getTo() +"-"+ sdf.format(xe4.getTimeStart()) + "-" + xe4.getCompanyId();
         xe4.setId(id4);
 
 //        xeKhachArrayList.add(xe1);
@@ -142,10 +145,8 @@ public class SearchActivity extends AppCompatActivity {
         autoEdtDiemDi = findViewById(R.id.autoEdtDiemDi);
         autoEdtDiemDen = findViewById(R.id.autoEdtDiemDen);
         btnDatePicker = findViewById(R.id.btnDatePicker);
-        btnTimePicker = findViewById(R.id.btnTimePicker);
         btnSearch = findViewById(R.id.btnSearch);
         txtPickedDate = findViewById(R.id.txtPickedDay);
-        txtPickedTime = findViewById(R.id.txtPickedTime);
         lvPassengerCars = findViewById(R.id.lvPassengerCars);
     }
 
@@ -179,6 +180,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final Calendar calendar = Calendar.getInstance();
+                int day = 1, month = 1, year = 1970;
                 day = calendar.get(Calendar.DAY_OF_MONTH);
                 month = calendar.get(Calendar.MONTH);
                 year = calendar.get(Calendar.YEAR);
@@ -186,37 +188,34 @@ public class SearchActivity extends AppCompatActivity {
                         new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                            SearchActivity.this.year = year;
-                            month = monthOfYear + 1;
-                            day = dayOfMonth;
                             DecimalFormat df = new DecimalFormat("00");
-                            txtPickedDate.setText(df.format(day)+ "/" + df.format(month) + "/" + SearchActivity.this.year);
+                            txtPickedDate.setText(df.format(dayOfMonth)+ "-" + df.format(monthOfYear+1) + "-" + year);
                         }
                 },year,month,day);
                 datePickerDialog.show();
             }
         });
 
-        btnTimePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Calendar c = Calendar.getInstance();
-                hour = c.get(Calendar.HOUR_OF_DAY);
-                minute = c.get(Calendar.MINUTE);
-                TimePickerDialog timePickerDialog = new TimePickerDialog(SearchActivity.this,
-                        new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker view, int hourOfDay,
-                                                  int minute) {
-                                hour = hourOfDay;
-                                SearchActivity.this.minute = minute;
-                                DecimalFormat df = new DecimalFormat("00");
-                                txtPickedTime.setText(df.format(hour) + ":" + df.format(SearchActivity.this.minute));
-                            }
-                        }, hour, minute, true);
-                timePickerDialog.show();
-            }
-        });
+//        btnTimePicker.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                final Calendar c = Calendar.getInstance();
+//                hour = c.get(Calendar.HOUR_OF_DAY);
+//                minute = c.get(Calendar.MINUTE);
+//                TimePickerDialog timePickerDialog = new TimePickerDialog(SearchActivity.this,
+//                        new TimePickerDialog.OnTimeSetListener() {
+//                            @Override
+//                            public void onTimeSet(TimePicker view, int hourOfDay,
+//                                                  int minute) {
+//                                hour = hourOfDay;
+//                                SearchActivity.this.minute = minute;
+//                                DecimalFormat df = new DecimalFormat("00");
+//                                txtPickedTime.setText(df.format(hour) + ":" + df.format(SearchActivity.this.minute));
+//                            }
+//                        }, hour, minute, true);
+//                timePickerDialog.show();
+//            }
+//        });
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -224,16 +223,16 @@ public class SearchActivity extends AppCompatActivity {
                 String pickedDate = txtPickedDate.getText().toString().trim();
                 String start = autoEdtDiemDi.getText().toString().trim();
                 String end = autoEdtDiemDen.getText().toString().trim();
-                String pickedTime = txtPickedTime.getText().toString().trim();
+//                String pickedTime = txtPickedTime.getText().toString().trim();
 
-                if(pickedDate.isEmpty()|| pickedTime.isEmpty() || start.isEmpty() || end.isEmpty()) {
+                if(pickedDate.isEmpty() || start.isEmpty() || end.isEmpty()) {
                     Toast.makeText(SearchActivity.this,
                             "Bạn chưa nhập đủ thông tin",Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                Date date = new Date(year,month,day,0, 0);
-                String searchString1 = start + "-" + end + "-" + date.toString();
+//                Date date = new Date(year,month,day,0, 0);
+                String searchString1 = start + "-" + end + "-" + pickedDate;
                 Log.d(TAG,"Search String: " + searchString1);
                 Query myCarQuery = databaseReference.child("CoachList").orderByKey().startAt(searchString1);
                 myCarQuery.addValueEventListener(new ValueEventListener() {
