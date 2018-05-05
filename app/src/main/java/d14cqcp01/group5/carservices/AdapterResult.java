@@ -3,6 +3,7 @@ package d14cqcp01.group5.carservices;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -43,9 +44,10 @@ public class AdapterResult extends ArrayAdapter {
         TextView txtCompanyName = view.findViewById(R.id.txtCompanyName);
         TextView txtFromTo = view.findViewById(R.id.txtFromTo);
         TextView txtTime = view.findViewById(R.id.txtTime);
+        TextView txtDay = view.findViewById(R.id.txtDay);
         TextView txtStars = view.findViewById(R.id.txtStars);
 
-        XeKhach xe = list.get(position);
+        final XeKhach xe = list.get(position);
         txtCompanyName.setText(xe.getCompanyId());
         txtFromTo.setText(xe.getFrom() + " " + xe.getTo());
 
@@ -53,14 +55,24 @@ public class AdapterResult extends ArrayAdapter {
         String startTime = sdf.format(new Date(xe.getTimeStart()));
         String endTime = sdf.format(new Date(xe.getTimeEnd()));
         txtTime.setText("Thời gian: " + startTime + "-" + endTime);
+
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+        txtDay.setText("Ngày: " + sdf1.format(new Date(xe.getTimeStart())));
         txtStars.setText(String.valueOf(xe.getStars()));
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //TODO: Xem chi tiết xe khách
-                Intent intent = new Intent(activity, DatChoActivity.class);
+                SharedPreferences myCar = activity.getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor edt = myCar.edit();
+                edt.putString(activity.getString(R.string.currentCarID),xe.getId());
+                edt.putString(activity.getString(R.string.currentCarType),xe.getType());
+                edt.commit();
+                Intent intent = new Intent(activity, DetailActivity.class);
+                intent.putExtra(activity.getString(R.string.currentCarID),xe.getId());
                 activity.startActivity(intent);
+                activity.finish();
             }
         });
 

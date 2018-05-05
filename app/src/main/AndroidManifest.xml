@@ -23,6 +23,9 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
+        <activity android:name=".UserInfoActivity"/>
+        <activity android:name=".DetailActivity"/>
+        <activity android:name=".QuenMatKhauActivity"/>
         <activity android:name=".LoginActivity"/>
         <activity android:name=".QuanLiXeKhachActivity" />
         <activity android:name=".DangKyTaiKhoanActivity" />

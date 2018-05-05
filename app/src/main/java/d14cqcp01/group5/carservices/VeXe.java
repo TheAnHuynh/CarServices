@@ -6,7 +6,7 @@ public class VeXe {
     private long orderTime;
     private int seatNumber;
     private String status;
-    private String carId;
+    private String idCoach;
 
     public VeXe() {
     }
@@ -43,11 +43,11 @@ public class VeXe {
         this.status = status;
     }
 
-    public String getCarId() {
-        return carId;
+    public String getIdCoach() {
+        return idCoach;
     }
 
-    public void setCarId(String carId) {
-        this.carId = carId;
+    public void setIdCoach(String idCoach) {
+        this.idCoach = idCoach;
     }
 }

@@ -39,9 +39,8 @@ public class TicketIDMap extends HashMap<String, String> {
                 if (veXe == null) throw new AssertionError();
                 seatNumberMap.put(key,veXe.getSeatNumber());
                 switch (veXe.getStatus()){
-                    case "Đã đặt":
                     case "Đã thanh toán":{
-                        seatList.get(seatNumberMap.get(key)).setEnabled(false);
+                        seatList.get(seatNumberMap.get(key)-1).setEnabled(false);
                         break;
                     }
                     default:{
@@ -63,7 +62,7 @@ public class TicketIDMap extends HashMap<String, String> {
 
     @Override
     public String remove(Object key) {
-        seatList.get(seatNumberMap.get(key)).setEnabled(true);
+        seatList.get(seatNumberMap.get(key)-1).setEnabled(true);
         ticketListRef.removeEventListener(ticketEventMap.get(key));
         ticketEventMap.remove(key);
         return myTicketIDMap.remove(key);
