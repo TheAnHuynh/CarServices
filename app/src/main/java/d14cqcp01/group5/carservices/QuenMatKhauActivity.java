@@ -52,6 +52,9 @@ public class QuenMatKhauActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "Email sent.");
                             Toast.makeText(QuenMatKhauActivity.this, "Đã Gửi thành công", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(QuenMatKhauActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                         }
                         else {
                             Toast.makeText(QuenMatKhauActivity.this, "THất bại", Toast.LENGTH_SHORT).show();

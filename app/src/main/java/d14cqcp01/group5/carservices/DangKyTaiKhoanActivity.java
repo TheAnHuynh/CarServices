@@ -71,7 +71,7 @@ private FirebaseAuth mAuth;
                 }
 
                 final String rexStr = "^[0-9]$";
-                if(phoneNumber.length() < 10 || phoneNumber.matches(rexStr) == false || phoneNumber.length() > 12){
+                if(phoneNumber.length() < 10 || phoneNumber.length() > 12){
                     Log.d(TAG,"Số điện thoại không hợp lệ");
                     Toast.makeText(DangKyTaiKhoanActivity.this,"Số điện thoại không hợp lệ",Toast.LENGTH_SHORT).show();
                     return;
