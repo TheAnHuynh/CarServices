@@ -5,26 +5,17 @@ package d14cqcp01.group5.carservices;
  */
 
 public class CoachListModel {
-    private String id;
-    private String icon;
     private String companyId;
-    private String customer;
-    private float stars;
     private String from;
+    private String id;
+    private String journey;
+    private Long price;
+    private float stars;
+    private Long timeEnd;
+    private Long timeStart;
     private String to;
-    private String timeStart;
-    private String timeEnd;
-    private String price;
     private String type;
-    private String vacantSeats;
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
+    private Long vacantSeats;
 
     public String getCompanyId() {
         return companyId;
@@ -32,89 +23,6 @@ public class CoachListModel {
 
     public void setCompanyId(String companyId) {
         this.companyId = companyId;
-    }
-
-    public float getStars() {
-        return stars;
-    }
-
-    public void setStars(float stars) {
-        this.stars = stars;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getVacantSeats() {
-        return vacantSeats;
-    }
-
-    public void setVacantSeats(String vacantSeats) {
-        this.vacantSeats = vacantSeats;
-    }
-
-    public String finalAddress(){
-        return "carservices-cb0bd/CoachList";
-    }
-    public CoachListModel(String id, String icon, String companyId, String customer, float stars,
-                                      String from, String to, String timeStart, String timeEnd, String price,
-                                      String type, String buttonInfo) {
-        this.id = id;
-        this.icon = icon;
-        this.companyId = companyId;
-        this.customer = customer;
-        this.stars = stars;
-        this.from = from;
-        this.to = to;
-        this.timeStart = timeStart;
-        this.timeEnd = timeEnd;
-        this.price = price;
-        this.type = type;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getcompanyId() {
-        return companyId;
-    }
-
-    public void setcompanyId(String companyId) {
-        this.companyId = companyId;
-    }
-
-    public String getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(String customer) {
-        this.customer = customer;
-    }
-
-    public float getstars() {
-        return stars;
-    }
-
-    public void setstars(float stars) {
-        this.stars = stars;
     }
 
     public String getFrom() {
@@ -125,6 +33,54 @@ public class CoachListModel {
         this.from = from;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getJourney() {
+        return journey;
+    }
+
+    public void setJourney(String journey) {
+        this.journey = journey;
+    }
+
+    public Long getPrice() {
+        return price;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
+    }
+
+    public float getStars() {
+        return stars;
+    }
+
+    public void setStars(float stars) {
+        this.stars = stars;
+    }
+
+    public Long getTimeEnd() {
+        return timeEnd;
+    }
+
+    public void setTimeEnd(Long timeEnd) {
+        this.timeEnd = timeEnd;
+    }
+
+    public Long getTimeStart() {
+        return timeStart;
+    }
+
+    public void setTimeStart(Long timeStart) {
+        this.timeStart = timeStart;
+    }
+
     public String getTo() {
         return to;
     }
@@ -133,36 +89,36 @@ public class CoachListModel {
         this.to = to;
     }
 
-    public String getTimeStart() {
-        return timeStart;
-    }
-
-    public void setTimeStart(String timeStart) {
-        this.timeStart = timeStart;
-    }
-
-    public String getTimeEnd() {
-        return timeEnd;
-    }
-
-    public void setTimeEnd(String timeEnd) {
-        this.timeEnd = timeEnd;
-    }
-
-    public String getprice() {
-        return price;
-    }
-
-    public void setprice(String price) {
-        this.price = price;
-    }
-
-    public String gettype() {
+    public String getType() {
         return type;
     }
 
-    public void settype(String type) {
+    public void setType(String type) {
         this.type = type;
     }
 
+    public Long getVacantSeats() {
+        return vacantSeats;
+    }
+
+    public void setVacantSeats(Long vacantSeats) {
+        this.vacantSeats = vacantSeats;
+    }
+
+    public CoachListModel() {
+    }
+
+    public CoachListModel(String companyId, String from, String id, String journey, Long price, float stars, Long timeEnd, Long timeStart, String to, String type, Long vacantSeats) {
+        this.companyId = companyId;
+        this.from = from;
+        this.id = id;
+        this.journey = journey;
+        this.price = price;
+        this.stars = stars;
+        this.timeEnd = timeEnd;
+        this.timeStart = timeStart;
+        this.to = to;
+        this.type = type;
+        this.vacantSeats = vacantSeats;
+    }
 }

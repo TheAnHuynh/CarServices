@@ -9,17 +9,12 @@ import java.util.List;
  */
 
 public class User {
-    String avatar="",email="",number="",pass="";
     HashMap<String,String> ticketList;
 
-    public User() {
-    }
-
-    public User(String avatar, String email, String number, String pass, HashMap<String,String> ticketList) {
-        this.avatar = avatar;
-        this.email = email;
-        this.number = number;
-        this.pass = pass;
+    public User(HashMap<String, String> ticketList) {
         this.ticketList = ticketList;
+    }
+    public User() {
+
     }
 }

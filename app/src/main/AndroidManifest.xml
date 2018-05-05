@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/CarServicesAppTheme">
-        <activity android:name=".SplashScreenActivity">
+        <activity android:name=".HistoryLayoutController">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,6 +27,7 @@
         <activity android:name=".DetailActivity"/>
         <activity android:name=".QuenMatKhauActivity"/>
         <activity android:name=".LoginActivity"/>
+        <activity android:name=".PaymentController"/>
         <activity android:name=".QuanLiXeKhachActivity" />
         <activity android:name=".DangKyTaiKhoanActivity" />
         <activity android:name=".SearchActivity"/>

@@ -7,7 +7,7 @@ package d14cqcp01.group5.carservices;
 public class TicketListModel {
     private String id;
     private String idCoach;
-    private Integer orderTime;
+    private Long orderTime;
     private String seatNumber;
     private String status;
 
@@ -27,11 +27,11 @@ public class TicketListModel {
         this.idCoach = idCoach;
     }
 
-    public int getOrderTime() {
+    public Long getOrderTime() {
         return orderTime;
     }
 
-    public void setOrderTime(Integer orderTime) {
+    public void setOrderTime(Long orderTime) {
         this.orderTime = orderTime;
     }
 
@@ -51,12 +51,14 @@ public class TicketListModel {
         this.status = status;
     }
 
-    public TicketListModel(String id, String idCoach, Integer orderTime, String seatNumber, String status) {
+    public TicketListModel(String id, String idCoach, Long orderTime, String seatNumber, String status) {
         this.id = id;
         this.idCoach = idCoach;
         this.orderTime = orderTime;
         this.seatNumber = seatNumber;
         this.status = status;
     }
+    public TicketListModel(){}
+
 
 }
