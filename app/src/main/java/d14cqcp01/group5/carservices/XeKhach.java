@@ -11,7 +11,7 @@ import java.util.Locale;
 
 public class XeKhach {
     public final static String XE_GIUONG_NAM = "Xe gường nằm"; // 39 chỗ
-    public final static String XE_16_CHO = "XE 16 chỗ";
+    public final static String XE_16_CHO = "Xe 16 chỗ";
     public final static String XE_25_CHO = "Xe 25 chỗ";
 
     private String id;
@@ -129,6 +129,9 @@ public class XeKhach {
         this.ticketList = ticketList;
     }
 
+    public void addTicket(String id){
+        ticketList.add(id);
+    }
     @Override
     public String toString() {
         return "ID:" + getId() + "\n" +

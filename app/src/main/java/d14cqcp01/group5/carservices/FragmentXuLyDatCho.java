@@ -18,99 +18,107 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class FragmentXuLyDatCho extends Fragment implements View.OnClickListener{
     private final static String TAG = "FragmentXuLyDatCho";
+
     private String carId;
     private String carType;
-    private DatabaseReference myRef;
-//    private XeKhach car;
+    private DatabaseReference myCoachRef;
     private int numOfTicket;
 
     private ArrayList<Button> arrButton;
-    private HashMap<String,Button> currentSelectedSeat;
+    private static HashMap<String,Button> currentSelectedSeat = new HashMap<>();
     private TicketIDMap ticketIdMap;
+    private DatabaseReference ticketListRef; // tham chiếu đến danh sách vé.
+
+    public FragmentXuLyDatCho(){
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         SharedPreferences preferences = this.getActivity().getPreferences(Context.MODE_PRIVATE);
         carId = preferences.getString(getString(R.string.currentCarID), "");
-        Log.d(TAG,"Car ID:" + carId);
+        Log.d(TAG,"====================== Car ID:" + carId + "===============================");
         carType = preferences.getString(getString(R.string.currentCarType), "");
-        Log.d(TAG,"Car Type:" + carType);
+        Log.d(TAG,"====================== Car Type:" + carType + "===============================");
         View viewSoDoGheXe;
-        if(!carType.isEmpty() && !carId.isEmpty()){
+        if(carType.length() > 0 && carId.length() > 0){
+            carId = "";
+            carType = "";
             numOfTicket = 0;
-            currentSelectedSeat = new HashMap<>();
-            DatabaseReference ticketListRef = FirebaseDatabase.getInstance().getReference(getString(R.string.NODE_TICKET));
             arrButton = new ArrayList<>();
+            ticketListRef = FirebaseDatabase.getInstance()
+                    .getReference(getString(R.string.NODE_TICKET));
             ticketIdMap = new TicketIDMap(new HashMap<String, String>(),arrButton,ticketListRef);
+            myCoachRef = FirebaseDatabase.getInstance().getReference();
+            myCoachRef.child(getString(R.string.NODE_COACH)+"/"+ carId+ "/" + "ticketList")
+                    .addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            for(DataSnapshot ve : dataSnapshot.getChildren()){
+                                String maVeXe = ve.getValue(String.class);
+                                ticketIdMap.put(ve.getKey(),maVeXe);
+                                Log.d(TAG,"Ticket list on child added: " + maVeXe);
+                            }
+                        }
+
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                            for(DataSnapshot ve : dataSnapshot.getChildren()){
+                                String maVeXe = ve.getValue(String.class);
+                                ticketIdMap.put(ve.getKey(),maVeXe);
+                                Log.d(TAG,"Ticket list on child changed: " + ve.getKey() + ":" + maVeXe);
+                            }
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+                            for(DataSnapshot ve : dataSnapshot.getChildren()){
+                                String maVeXe = ve.getValue(String.class);
+                                ticketIdMap.remove(ve.getKey());
+                                Log.d(TAG,"Ticket list on child removed: " + ve.getKey() + ":" + maVeXe);
+                            }
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+            Log.d(TAG,"====================== -+- ===============================");
             switch(carType){
                 case XeKhach.XE_16_CHO: {
+                    Log.d(TAG,"====================== " + XeKhach.XE_16_CHO + "===============================");
                     viewSoDoGheXe = inflater.inflate(R.layout.layout_ghe_xe_16_cho,container,false);
                     addControlsXe16Cho(viewSoDoGheXe);
                     addEvents();
                     return viewSoDoGheXe;
                 }
                 case XeKhach.XE_25_CHO:{
+                    Log.d(TAG,"====================== " + XeKhach.XE_25_CHO + "===============================");
                     viewSoDoGheXe = inflater.inflate(R.layout.layout_ghe_xe_25_cho,container,false);
                     addControlsXe24Cho(viewSoDoGheXe);
                     addEvents();
                     return viewSoDoGheXe;
                 }
                 case XeKhach.XE_GIUONG_NAM:{
+                    Log.d(TAG,"====================== " + XeKhach.XE_GIUONG_NAM + "===============================");
                     viewSoDoGheXe = inflater.inflate(R.layout.layout_ghe_xe_giuong_nam,container,false);
                     addControlsXeGiuongNam(viewSoDoGheXe);
                     addEvents();
                     return viewSoDoGheXe;
                 }
             }
-            myRef = FirebaseDatabase.getInstance().getReference();
-            myRef.child(getString(R.string.NODE_COACH)+"/"+ carId+ "/" + "ticketList")
-                    .addChildEventListener(new ChildEventListener() {
-                @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    for(DataSnapshot ve : dataSnapshot.getChildren()){
-                        String maVeXe = ve.getValue(String.class);
-                        ticketIdMap.put(ve.getKey(),maVeXe);
-                        Log.d(TAG,"Ticket list on child added: " + maVeXe);
-                    }
-                }
-
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                    for(DataSnapshot ve : dataSnapshot.getChildren()){
-                        String maVeXe = ve.getValue(String.class);
-                        ticketIdMap.put(ve.getKey(),maVeXe);
-                        Log.d(TAG,"Ticket list on child changed: " + ve.getKey() + ":" + maVeXe);
-                    }
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-                    for(DataSnapshot ve : dataSnapshot.getChildren()){
-                        String maVeXe = ve.getValue(String.class);
-                        ticketIdMap.remove(ve.getKey());
-                        Log.d(TAG,"Ticket list on child removed: " + ve.getKey() + ":" + maVeXe);
-                    }
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
         }
         return null;
     }
@@ -310,7 +318,7 @@ public class FragmentXuLyDatCho extends Fragment implements View.OnClickListener
 //    public List<String> getCurrentSelectedSeat() {
 //
 //    }
-    public ArrayList<String> getSelectedSeatNumbers(){
+    public static ArrayList<String> getSelectedSeatNumbers(){
         ArrayList<String> arrayList = new ArrayList<>();
         for(String keySet: currentSelectedSeat.keySet()){
             arrayList.add(keySet);

@@ -39,6 +39,7 @@ public class TicketIDMap extends HashMap<String, String> {
                 if (veXe == null) throw new AssertionError();
                 seatNumberMap.put(key,veXe.getSeatNumber());
                 switch (veXe.getStatus()){
+                    case "Chờ thanh toán":
                     case "Đã thanh toán":{
                         seatList.get(seatNumberMap.get(key)-1).setEnabled(false);
                         break;

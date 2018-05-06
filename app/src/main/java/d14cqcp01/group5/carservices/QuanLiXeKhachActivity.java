@@ -48,6 +48,8 @@ public class QuanLiXeKhachActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO: Chuyển đến xem lịch sử đặt vé ( nếu chưa đăng nhập thì chuyển đến trang đăng nhập.)
+                startActivity(new Intent(QuanLiXeKhachActivity.this,HistoryLayoutController.class));
+                finish();
 
             }
         });
@@ -59,6 +61,7 @@ public class QuanLiXeKhachActivity extends AppCompatActivity {
                 if(currentUser != null){
                     //TODO:Hiện thông tin người dùng.
                     startActivity(new Intent(QuanLiXeKhachActivity.this,UserInfoActivity.class));
+                    finish();
                 }
                 else{
                     //TODO: Chuyển hướng đến giao diện đăng nhập

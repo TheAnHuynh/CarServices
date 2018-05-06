@@ -66,19 +66,28 @@ public class DetailActivity extends AppCompatActivity {
 
                 }
             });
+
             findViewById(R.id.SetButton).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent booking = new Intent(DetailActivity.this,DatChoActivity.class);
+                    booking.putExtra(getString(R.string.currentCarID),key);
+                    booking.putExtra(getString(R.string.currentCarType),typeText.getText());
                     startActivity(booking);
                     finish();
                 }
             });
+
         }else {
             Log.d(TAG,"Key = empty");
             Toast.makeText(DetailActivity.this,"Không tìm thấy xe", Toast.LENGTH_SHORT);
         }
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

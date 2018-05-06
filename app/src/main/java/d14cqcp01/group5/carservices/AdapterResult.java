@@ -64,11 +64,6 @@ public class AdapterResult extends ArrayAdapter {
             @Override
             public void onClick(View view) {
                 //TODO: Xem chi tiết xe khách
-                SharedPreferences myCar = activity.getPreferences(Context.MODE_PRIVATE);
-                SharedPreferences.Editor edt = myCar.edit();
-                edt.putString(activity.getString(R.string.currentCarID),xe.getId());
-                edt.putString(activity.getString(R.string.currentCarType),xe.getType());
-                edt.commit();
                 Intent intent = new Intent(activity, DetailActivity.class);
                 intent.putExtra(activity.getString(R.string.currentCarID),xe.getId());
                 activity.startActivity(intent);
