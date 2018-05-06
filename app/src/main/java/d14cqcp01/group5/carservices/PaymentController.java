@@ -60,7 +60,6 @@ public class PaymentController extends AppCompatActivity {
         spinnerArrayAdapt.setDropDownViewResource(R.layout.spinner_item);
         yearsPicker.setAdapter(spinnerArrayAdapt);
         yearsPicker.setSelection(48);
-        yearsPicker.set
 
 
 
