@@ -33,7 +33,9 @@ import java.util.Map;
 
 public class CommentActivity extends AppCompatActivity {
 
+    private ArrayList<PhanHoi> phanHoiList;
     private ListView list;
+    private DanhGiaApdapter apdapter;
 
     private final static String TAG = CommentActivity.class.getSimpleName();
     @Override
@@ -47,16 +49,14 @@ public class CommentActivity extends AppCompatActivity {
         Log.d(TAG,"Company name = " +  temp);
         final String company = temp;
         final String currentUser = user.getDisplayName();
-
-        final ArrayList<PhanHoi> phanHoiList = new ArrayList<PhanHoi>();
         final DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         final Button btnSubmit = findViewById(R.id.btnSubmit);
         final EditText danhGiaText = findViewById(R.id.etFeedback);
         final TextView companyText = findViewById(R.id.textView2);
-        final RatingBar ratingBar = findViewById(R.id.ratingBar);
-
         list = findViewById(R.id.listviewPhanHoi);
-        final DanhGiaApdapter apdapter = new DanhGiaApdapter(CommentActivity.this, R.layout.layout_comment, phanHoiList);
+
+        phanHoiList = new ArrayList<PhanHoi>();
+        apdapter = new DanhGiaApdapter(CommentActivity.this, R.layout.layout_comment, phanHoiList);
         list.setAdapter(apdapter);
 
         companyText.setText(company);
