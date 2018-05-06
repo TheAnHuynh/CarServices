@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -99,7 +100,19 @@ public class PaymentController extends AppCompatActivity {
     }
     private void notice(Context context){
         AlertDialog.Builder builder;
+        if (soTheEditText.length() < 20) {
+            Toast.makeText(context,"Wrong number card form",Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        if (tenEditText.length() == 0) {
+            Toast.makeText(context,"Card's name is empty",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (maBaoMatEditText.length() != 3) {
+            Toast.makeText(context,"Wrong card's private code form",Toast.LENGTH_SHORT).show();
+            return;
+        }
         builder = new AlertDialog.Builder(context);
         builder.setTitle("Thông báo")
                 .setMessage("Bạn có chắc chắn mua vé?")

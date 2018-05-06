@@ -8,7 +8,7 @@ public class TicketListModel {
     private String id;
     private String idCoach;
     private Long orderTime;
-    private String seatNumber;
+    private Long seatNumber;
     private String status;
 
     public String getId() {
@@ -35,11 +35,11 @@ public class TicketListModel {
         this.orderTime = orderTime;
     }
 
-    public String getSeatNumber() {
+    public Long getSeatNumber() {
         return seatNumber;
     }
 
-    public void setSeatNumber(String seatNumber) {
+    public void setSeatNumber( Long seatNumber) {
         this.seatNumber = seatNumber;
     }
 
@@ -51,7 +51,7 @@ public class TicketListModel {
         this.status = status;
     }
 
-    public TicketListModel(String id, String idCoach, Long orderTime, String seatNumber, String status) {
+    public TicketListModel(String id, String idCoach, Long orderTime, Long seatNumber, String status) {
         this.id = id;
         this.idCoach = idCoach;
         this.orderTime = orderTime;

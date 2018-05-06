@@ -68,9 +68,11 @@ public class HistoryLayoutController extends AppCompatActivity {
                 arrTick1.clear();
                 arrTick2.clear();
                 DataSnapshot S = (dataSnapshot.child("UserList/"+ userId +"/ticketList"));
-                for (DataSnapshot item: S.getChildren()) {
+                for (DataSnapshot item: S.getChildren()){
+                System.out.println(item.getValue(String.class));
                     TicketListModel T = dataSnapshot.child(ticketLink + "/" + item.getValue(String.class)).getValue(TicketListModel.class);
                     CoachListModel C = dataSnapshot.child(coachLink + "/" + T.getIdCoach()).getValue(CoachListModel.class);
+                    System.out.println(item.getValue(String.class));
                     String k = item.getKey();
                     if (T.getStatus().equals("Chờ thanh toán")){
                         arrKey1.add(k);
