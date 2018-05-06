@@ -3,6 +3,7 @@ package d14cqcp01.group5.carservices;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,6 +33,9 @@ import java.util.Map;
 
 public class CommentActivity extends AppCompatActivity {
 
+    private ListView list;
+
+    private final static String TAG = CommentActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +43,9 @@ public class CommentActivity extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         Intent intent = getIntent();
-
-        final String company = intent.getStringExtra("COMPANYID");    //du lieu ao
+        String temp = intent.getStringExtra("COMPANYID");
+        Log.d(TAG,"Company name = " +  temp);
+        final String company = temp;
         final String currentUser = user.getDisplayName();
 
         final ArrayList<PhanHoi> phanHoiList = new ArrayList<PhanHoi>();
@@ -49,6 +54,10 @@ public class CommentActivity extends AppCompatActivity {
         final EditText danhGiaText = findViewById(R.id.etFeedback);
         final TextView companyText = findViewById(R.id.textView2);
         final RatingBar ratingBar = findViewById(R.id.ratingBar);
+
+        list = findViewById(R.id.listviewPhanHoi);
+        final DanhGiaApdapter apdapter = new DanhGiaApdapter(CommentActivity.this, R.layout.layout_comment, phanHoiList);
+        list.setAdapter(apdapter);
 
         companyText.setText(company);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -74,14 +83,14 @@ public class CommentActivity extends AppCompatActivity {
                 for (DataSnapshot postSnapshot: cmtList.getChildren()) {
                     String key = postSnapshot.getValue(String.class);
                     PhanHoi p = dataSnapshot.child("CommentList").child(key).getValue(PhanHoi.class);
-                    phanHoiList.add(p);
+                    if(p!=null){
+                        phanHoiList.add(p);
+                        apdapter.notifyDataSetChanged();
+                    }
                 }
                 Collections.reverse(phanHoiList);
-                ListView list = findViewById(R.id.listviewPhanHoi);
-                DanhGiaApdapter apdapter = new DanhGiaApdapter(CommentActivity.this, R.layout.layout_comment, phanHoiList);
-                list.setAdapter(apdapter);
-                Toast.makeText(getApplicationContext(),"",
-                        Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),"",
+//                        Toast.LENGTH_LONG).show();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

@@ -33,7 +33,7 @@ private FirebaseAuth mAuth;
     private Button btnDangki;
     //private ImageView imgAvatar;
     private EditText edtFullName, edtEmail, edtPassword, edtPhone, edtPasswordConfirm;
-//    NguoiDung Nuser = new NguoiDung();
+
     
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
