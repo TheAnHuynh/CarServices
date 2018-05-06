@@ -23,19 +23,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class FragmentXuLyDatCho extends Fragment implements View.OnClickListener{
-    private final static String TAG = "FragmentXuLyDatCho";
+    private final static String TAG = FragmentXuLyDatCho.class.getSimpleName();
 
     private String carId;
     private String carType;
     private DatabaseReference myCoachRef;
     private int numOfTicket;
-
+    private HashMap<String,Integer> hashMap;
     private ArrayList<Button> arrButton;
     private static HashMap<String,Button> currentSelectedSeat = new HashMap<>();
     private TicketIDMap ticketIdMap;
     private DatabaseReference ticketListRef; // tham chiếu đến danh sách vé.
 
     public FragmentXuLyDatCho(){
+
     }
 
     @Nullable
@@ -48,10 +49,12 @@ public class FragmentXuLyDatCho extends Fragment implements View.OnClickListener
         Log.d(TAG,"====================== Car Type:" + carType + "===============================");
         View viewSoDoGheXe;
         if(carType.length() > 0 && carId.length() > 0){
-            carId = "";
-            carType = "";
             numOfTicket = 0;
             arrButton = new ArrayList<>();
+            hashMap = new HashMap<>();
+            hashMap.put(XeKhach.XE_16_CHO,1);
+            hashMap.put(XeKhach.XE_25_CHO,2);
+            hashMap.put(XeKhach.XE_GIUONG_NAM,3);
             ticketListRef = FirebaseDatabase.getInstance()
                     .getReference(getString(R.string.NODE_TICKET));
             ticketIdMap = new TicketIDMap(new HashMap<String, String>(),arrButton,ticketListRef);
@@ -96,22 +99,23 @@ public class FragmentXuLyDatCho extends Fragment implements View.OnClickListener
                         }
                     });
             Log.d(TAG,"====================== -+- ===============================");
-            switch(carType){
-                case XeKhach.XE_16_CHO: {
+
+            switch(hashMap.get(carType)){
+                case 1: {
                     Log.d(TAG,"====================== " + XeKhach.XE_16_CHO + "===============================");
                     viewSoDoGheXe = inflater.inflate(R.layout.layout_ghe_xe_16_cho,container,false);
                     addControlsXe16Cho(viewSoDoGheXe);
                     addEvents();
                     return viewSoDoGheXe;
                 }
-                case XeKhach.XE_25_CHO:{
+                case 2:{
                     Log.d(TAG,"====================== " + XeKhach.XE_25_CHO + "===============================");
                     viewSoDoGheXe = inflater.inflate(R.layout.layout_ghe_xe_25_cho,container,false);
                     addControlsXe24Cho(viewSoDoGheXe);
                     addEvents();
                     return viewSoDoGheXe;
                 }
-                case XeKhach.XE_GIUONG_NAM:{
+                case 3:{
                     Log.d(TAG,"====================== " + XeKhach.XE_GIUONG_NAM + "===============================");
                     viewSoDoGheXe = inflater.inflate(R.layout.layout_ghe_xe_giuong_nam,container,false);
                     addControlsXeGiuongNam(viewSoDoGheXe);
@@ -120,6 +124,7 @@ public class FragmentXuLyDatCho extends Fragment implements View.OnClickListener
                 }
             }
         }
+        Log.d(TAG,"============Fragment view = null ==========");
         return null;
     }
     private void addControlsXe16Cho(View viewSoDoGheXe) {
@@ -304,9 +309,11 @@ public class FragmentXuLyDatCho extends Fragment implements View.OnClickListener
 //        Toast.makeText(getContext(),seat.getText(), Toast.LENGTH_SHORT).show();
         if(currentSelectedSeat.size() < 7){
             if(currentSelectedSeat.containsKey(seatNummber)){
+                numOfTicket--;
                 currentSelectedSeat.remove(seatNummber);
                 seat.setBackground(getActivity().getResources().getDrawable(R.drawable.button_selector_2));
             }else{
+                ++numOfTicket;
                 currentSelectedSeat.put(seatNummber,seat);
                 seat.setBackground(getActivity().getResources().getDrawable(R.drawable.seat_is_choosed));
             }

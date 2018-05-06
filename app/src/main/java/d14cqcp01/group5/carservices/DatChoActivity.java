@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -78,6 +79,7 @@ public class DatChoActivity extends AppCompatActivity {
                 });
 
         ticketListRef = FirebaseDatabase.getInstance().getReference(getString(R.string.NODE_TICKET));
+
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         ticketHistoryOfUser = FirebaseDatabase.getInstance().getReference("UserList/" + user.getUid());
@@ -94,35 +96,15 @@ public class DatChoActivity extends AppCompatActivity {
                         ve.setOrderTime(System.currentTimeMillis());
                         ve.setStatus("Chờ thanh toán");
                         ve.setId("Waiting");
-                        ticketListRef.push().setValue(ve).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.e(TAG,e.toString());
-                            }
-                        }).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG,"Tạo vé thành công");
-                                ticketListRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        String idVe = dataSnapshot.getKey();
-                                        Log.d(TAG,"Tạo vé thành công: " + idVe);
-                                        if(currentCar.getTicketList() == null){
-                                            currentCar.setTicketList(new ArrayList<String>());
-                                        }
-                                        currentCar.addTicket(idVe);
-                                        coachRef.child(currentCarID).setValue(currentCar);
-                                        ticketHistoryOfUser.child("ticketList").push().setValue(idVe);
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
-                            }
-                        });
+                        String idVe = ticketListRef.push().getKey();
+                        ticketListRef.child(idVe).setValue(ve);
+                        Log.d(TAG,"Tạo vé thành công: " + idVe);
+                        if(currentCar.getTicketList() == null){
+                            currentCar.setTicketList(new ArrayList<String>());
+                        }
+                        currentCar.addTicket(idVe);
+                        coachRef.child(currentCarID).setValue(currentCar);
+                        ticketHistoryOfUser.child("ticketList").push().setValue(idVe);
                     }
                     Toast.makeText(DatChoActivity.this, "Đặt vé thành công.",Toast.LENGTH_SHORT).show();
                     Intent intent1 = new Intent(DatChoActivity.this,SearchActivity.class);

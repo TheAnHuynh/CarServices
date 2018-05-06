@@ -135,11 +135,8 @@ public class LoginActivity extends AppCompatActivity
     }
 
     private void SetControl(){
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         edtUser = findViewById(R.id.edittextUser);
-        imm.showSoftInput(edtUser, InputMethodManager.SHOW_IMPLICIT);
         edtPass = findViewById(R.id.edittextPass);
-        imm.showSoftInput(edtPass, InputMethodManager.SHOW_IMPLICIT);
         txtCreateId     =  findViewById(R.id.buttonCreateID);
         txtForgotPass   =  findViewById(R.id.buttonForgotPass);
         btnLogin        = findViewById(R.id.buttonLogin);
