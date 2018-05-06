@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class HistoryLayoutController extends AppCompatActivity {
     TabLayout tabLayout;
@@ -35,15 +37,15 @@ public class HistoryLayoutController extends AppCompatActivity {
     String coachLink = "CoachList";
     ArrayList<TicketOfHistoryLayoutModel> arrTick1 = new ArrayList<TicketOfHistoryLayoutModel>();
     ArrayList<TicketOfHistoryLayoutModel> arrTick2 = new ArrayList<TicketOfHistoryLayoutModel>();
-    ArrayList<String> arrKey1 = new ArrayList<>();
-    ArrayList<String> arrKey2 = new ArrayList<>();
+    ArrayList<String> arrKey1 = new ArrayList<String>();
+    ArrayList<String> arrKey2 = new ArrayList<String>();
     ListView lvTick = null;
     ArrayListItemAdapterModel adapter1 = null;
     ArrayListItemAdapterModel adapter2 = null;
     String userId;
     NestedScrollView scrollView;
 
-    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     public DatabaseReference mData;
 
 
@@ -51,16 +53,16 @@ public class HistoryLayoutController extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         userId = user.getUid();
+//        userId = "iGBhzIeAlHMjOyGo5cCjzMw2sWc2";
         setContentView(R.layout.layout_lich_su_dat_ve);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-        scrollView = (NestedScrollView) findViewById(R.id.nestscrollview);
-        scrollView.setFillViewport(true);
         mData = FirebaseDatabase.getInstance().getReference();
 
         mData.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                try{
                 arrKey1.clear();
                 arrKey2.clear();
                 arrTick1.clear();
@@ -77,6 +79,9 @@ public class HistoryLayoutController extends AppCompatActivity {
                         arrTick2.add(new TicketOfHistoryLayoutModel(C,T));
                         arrKey2.add(k);
                     }
+                }}
+                catch(Exception er){
+                    System.out.println(er);
                 }
                 onDataChange1();
                 viewPager.refreshDrawableState();
@@ -140,6 +145,25 @@ public class HistoryLayoutController extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         setupViewPager(viewPager);
         setupTabIcons();
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            onBackPressed();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        //this is only needed if you have specific things
+        //that you want to do when the user presses the back button.
+        /* your specific things...*/
+
+        super.onBackPressed();
+        startActivity(new Intent(this, SplashScreenActivity.class));
+        finish();
     }
     private void setupViewPager(ViewPager viewPager) {
 
