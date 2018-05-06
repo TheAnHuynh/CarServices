@@ -41,7 +41,7 @@ public class DetailActivity extends AppCompatActivity {
         final TextView toText = (TextView) findViewById(R.id.toText);
         final TextView journeyText = (TextView) findViewById(R.id.journeyText);
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         final String key = intent.getStringExtra(getString(R.string.currentCarID));
         if(!key.isEmpty()){
             db.child("CoachList").child(key).addValueEventListener(new ValueEventListener() {
@@ -77,7 +77,15 @@ public class DetailActivity extends AppCompatActivity {
                     finish();
                 }
             });
-
+            findViewById(R.id.btnRating).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent rating = new Intent(DetailActivity.this,CommentActivity.class);
+                    rating.putExtra("COMPANYID",companyText.getText());
+                    startActivity(rating);
+                    finish();
+                }
+            });
         }else {
             Log.d(TAG,"Key = empty");
             Toast.makeText(DetailActivity.this,"Không tìm thấy xe", Toast.LENGTH_SHORT);

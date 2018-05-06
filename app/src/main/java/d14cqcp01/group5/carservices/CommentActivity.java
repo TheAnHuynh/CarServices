@@ -1,5 +1,6 @@
 package d14cqcp01.group5.carservices;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -37,16 +38,17 @@ public class CommentActivity extends AppCompatActivity {
         setContentView(R.layout.layout_ratingbar);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        Intent intent = getIntent();
 
-        final String company = "Hoàng Long";    //du lieu ao
+        final String company = intent.getStringExtra("COMPANYID");    //du lieu ao
         final String currentUser = user.getDisplayName();
 
         final ArrayList<PhanHoi> phanHoiList = new ArrayList<PhanHoi>();
         final DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-        final Button btnSubmit = (Button) findViewById(R.id.btnSubmit);
-        final EditText danhGiaText = (EditText) findViewById(R.id.etFeedback);
-        final TextView companyText = (TextView) findViewById(R.id.textView2);
-        final RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        final Button btnSubmit = findViewById(R.id.btnSubmit);
+        final EditText danhGiaText = findViewById(R.id.etFeedback);
+        final TextView companyText = findViewById(R.id.textView2);
+        final RatingBar ratingBar = findViewById(R.id.ratingBar);
 
         companyText.setText(company);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +77,7 @@ public class CommentActivity extends AppCompatActivity {
                     phanHoiList.add(p);
                 }
                 Collections.reverse(phanHoiList);
-                ListView list = (ListView) findViewById(R.id.listviewPhanHoi);
+                ListView list = findViewById(R.id.listviewPhanHoi);
                 DanhGiaApdapter apdapter = new DanhGiaApdapter(CommentActivity.this, R.layout.layout_comment, phanHoiList);
                 list.setAdapter(apdapter);
                 Toast.makeText(getApplicationContext(),"",

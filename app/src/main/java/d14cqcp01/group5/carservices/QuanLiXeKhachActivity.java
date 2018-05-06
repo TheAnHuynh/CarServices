@@ -15,7 +15,6 @@ public class QuanLiXeKhachActivity extends AppCompatActivity {
     private Button btnBookingHistory;
     private Button btnUserInfo;
     private Button btnDangXuat;
-    private Button btnRating;
     private FirebaseUser currentUser;
 
 
@@ -34,7 +33,6 @@ public class QuanLiXeKhachActivity extends AppCompatActivity {
         btnBookingHistory = findViewById(R.id.btnBookingHistory);
         btnUserInfo = findViewById(R.id.btnUserInfo);
         btnDangXuat = findViewById(R.id.btnDangXuat);
-        btnRating = findViewById(R.id.btnRating);
     }
 
     private void addEvents() {
@@ -59,20 +57,6 @@ public class QuanLiXeKhachActivity extends AppCompatActivity {
                     finish();
                 }
 
-            }
-        });
-
-        btnRating.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(currentUser != null){
-                    startActivity(new Intent(QuanLiXeKhachActivity.this,CommentActivity.class));
-                    finish();
-                }
-                else{
-                    startActivity(new Intent(QuanLiXeKhachActivity.this,LoginActivity.class));
-                    finish();
-                }
             }
         });
 

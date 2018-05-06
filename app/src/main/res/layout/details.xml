@@ -206,6 +206,14 @@
                 android:singleLine="false"
                 android:text="ĐẶT XE" />
 
+            <Button
+                android:id="@+id/btnRating"
+                style="@style/circleButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:textAllCaps="true"
+                android:text="ĐÁNH GIÁ NHÀ XE"/>
 
         </LinearLayout>
     </ScrollView>
