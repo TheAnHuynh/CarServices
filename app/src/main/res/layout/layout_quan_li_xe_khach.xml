@@ -35,6 +35,14 @@
         android:text="@string/user_info"/>
 
     <Button
+        android:id="@+id/btnRating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/circleButtonStyle"
+        android:layout_marginBottom="25dp"
+        android:text="@string/rating"/>
+
+    <Button
         android:id="@+id/btnDangXuat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

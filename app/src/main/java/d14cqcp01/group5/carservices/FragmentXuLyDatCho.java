@@ -13,11 +13,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,15 +29,17 @@ import java.util.HashMap;
 public class FragmentXuLyDatCho extends Fragment implements View.OnClickListener{
     private final static String TAG = FragmentXuLyDatCho.class.getSimpleName();
 
-    private String carId;
-    private String carType;
-    private DatabaseReference myCoachRef;
-    private int numOfTicket;
-    private HashMap<String,Integer> hashMap;
+//    private String carId;
+//    private String carType;
+    private DatabaseReference coachRef;
+    DatabaseReference ticketListRef;
+    private DatabaseReference ticketHistoryOfUser;;
     private ArrayList<Button> arrButton;
     private static HashMap<String,Button> currentSelectedSeat = new HashMap<>();
-    private TicketIDMap ticketIdMap;
-    private DatabaseReference ticketListRef; // tham chiếu đến danh sách vé.
+
+    private int soVeDaDat = 0;
+    private int soGheDangChon = 0;
+    //private TicketIDMap ticketIdMap;
 
     public FragmentXuLyDatCho(){
 
@@ -43,90 +49,157 @@ public class FragmentXuLyDatCho extends Fragment implements View.OnClickListener
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         SharedPreferences preferences = this.getActivity().getPreferences(Context.MODE_PRIVATE);
-        carId = preferences.getString(getString(R.string.currentCarID), "");
+        String carId = preferences.getString(getString(R.string.currentCarID), "");
         Log.d(TAG,"====================== Car ID:" + carId + "===============================");
-        carType = preferences.getString(getString(R.string.currentCarType), "");
+        String carType = preferences.getString(getString(R.string.currentCarType), "");
         Log.d(TAG,"====================== Car Type:" + carType + "===============================");
-        View viewSoDoGheXe;
+        View viewSoDoGheXe = null;
+        coachRef = FirebaseDatabase.getInstance().getReference(getString(R.string.NODE_COACH)+"/" + carId );
+        coachRef.child("ticketList").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                for(DataSnapshot child: dataSnapshot.getChildren()){
+                    String maVe = child.getValue(String.class);
+                    if(maVe != null){
+                        Log.d(TAG,"ticket list of coach: onChildAdded - id:" + maVe);
+                        coachRef.child("ticketList").child(maVe).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                try{
+                                    VeXe ve = dataSnapshot.getValue(VeXe.class);
+                                    if(ve.getStatus().equalsIgnoreCase("Chờ thanh toán") ||
+                                            ve.getStatus().equalsIgnoreCase("Đã thanh toán")){
+                                        arrButton.get(ve.getSeatNumber()-1).setEnabled(false);
+                                    }else{
+                                        arrButton.get(ve.getSeatNumber()-1).setEnabled(true);
+                                    }
+                                }catch (Exception e){
+                                    Log.e(TAG,e.toString());
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                for(DataSnapshot child: dataSnapshot.getChildren()){
+                    String maVe = child.getValue(String.class);
+                    if(maVe !=null){
+                        Log.d(TAG,"ticket list of coach: onChildChanged - id:" + maVe);
+                        ticketListRef.child(maVe).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                try{
+                                    VeXe ve = dataSnapshot.getValue(VeXe.class);
+                                    if(ve.getStatus().equalsIgnoreCase("Chờ thanh toán") ||
+                                            ve.getStatus().equalsIgnoreCase("Đã thanh toán")){
+                                        arrButton.get(ve.getSeatNumber()-1).setBackground(getContext().getDrawable(R.drawable.button_selector_2));
+                                        arrButton.get(ve.getSeatNumber()-1).setEnabled(false);
+                                    }else{
+                                        arrButton.get(ve.getSeatNumber()-1)
+                                                    .setBackground(getContext().getDrawable(R.drawable.button_selector_2));
+                                        arrButton.get(ve.getSeatNumber()-1).setEnabled(true);
+                                    }
+                                }catch (Exception e){
+                                    Log.e(TAG,e.toString());
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user!=null){
+            ticketHistoryOfUser = FirebaseDatabase.getInstance().getReference("UserList/" + user.getUid());
+            ticketHistoryOfUser.child("ticketList").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        for(DataSnapshot child: dataSnapshot.getChildren()){
+                            String ticketID = child.getValue(String.class);
+                            Log.d(TAG,"check current ticket if user had : " + ticketID);
+                            Query query = coachRef.child("ticketList").orderByValue().equalTo(ticketID);
+                            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if(dataSnapshot.exists()){
+                                        tangSoVeDaDat();
+                                    }
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
         if(carType.length() > 0 && carId.length() > 0){
-            numOfTicket = 0;
             arrButton = new ArrayList<>();
-            hashMap = new HashMap<>();
-            hashMap.put(XeKhach.XE_16_CHO,1);
-            hashMap.put(XeKhach.XE_25_CHO,2);
-            hashMap.put(XeKhach.XE_GIUONG_NAM,3);
-            ticketListRef = FirebaseDatabase.getInstance()
-                    .getReference(getString(R.string.NODE_TICKET));
-            ticketIdMap = new TicketIDMap(new HashMap<String, String>(),arrButton,ticketListRef);
-            myCoachRef = FirebaseDatabase.getInstance().getReference();
-            myCoachRef.child(getString(R.string.NODE_COACH)+"/"+ carId+ "/" + "ticketList")
-                    .addChildEventListener(new ChildEventListener() {
-                        @Override
-                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                            for(DataSnapshot ve : dataSnapshot.getChildren()){
-                                String maVeXe = ve.getValue(String.class);
-                                ticketIdMap.put(ve.getKey(),maVeXe);
-                                Log.d(TAG,"Ticket list on child added: " + maVeXe);
-                            }
-                        }
-
-                        @Override
-                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                            for(DataSnapshot ve : dataSnapshot.getChildren()){
-                                String maVeXe = ve.getValue(String.class);
-                                ticketIdMap.put(ve.getKey(),maVeXe);
-                                Log.d(TAG,"Ticket list on child changed: " + ve.getKey() + ":" + maVeXe);
-                            }
-                        }
-
-                        @Override
-                        public void onChildRemoved(DataSnapshot dataSnapshot) {
-                            for(DataSnapshot ve : dataSnapshot.getChildren()){
-                                String maVeXe = ve.getValue(String.class);
-                                ticketIdMap.remove(ve.getKey());
-                                Log.d(TAG,"Ticket list on child removed: " + ve.getKey() + ":" + maVeXe);
-                            }
-                        }
-
-                        @Override
-                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
+            currentSelectedSeat.clear();
             Log.d(TAG,"====================== -+- ===============================");
-
-            switch(hashMap.get(carType)){
-                case 1: {
+            switch(carType){
+                case XeKhach.XE_16_CHO: {
                     Log.d(TAG,"====================== " + XeKhach.XE_16_CHO + "===============================");
                     viewSoDoGheXe = inflater.inflate(R.layout.layout_ghe_xe_16_cho,container,false);
                     addControlsXe16Cho(viewSoDoGheXe);
                     addEvents();
-                    return viewSoDoGheXe;
                 }
-                case 2:{
+                case XeKhach.XE_25_CHO:{
                     Log.d(TAG,"====================== " + XeKhach.XE_25_CHO + "===============================");
                     viewSoDoGheXe = inflater.inflate(R.layout.layout_ghe_xe_25_cho,container,false);
                     addControlsXe24Cho(viewSoDoGheXe);
                     addEvents();
-                    return viewSoDoGheXe;
                 }
-                case 3:{
+                case XeKhach.XE_GIUONG_NAM:{
                     Log.d(TAG,"====================== " + XeKhach.XE_GIUONG_NAM + "===============================");
                     viewSoDoGheXe = inflater.inflate(R.layout.layout_ghe_xe_giuong_nam,container,false);
                     addControlsXeGiuongNam(viewSoDoGheXe);
                     addEvents();
-                    return viewSoDoGheXe;
                 }
             }
         }
         Log.d(TAG,"============Fragment view = null ==========");
-        return null;
+        return viewSoDoGheXe;
     }
+
     private void addControlsXe16Cho(View viewSoDoGheXe) {
         Button ghe01 = viewSoDoGheXe.findViewById(R.id.btnGhe01);
         Button ghe02 = viewSoDoGheXe.findViewById(R.id.btnGhe02);
@@ -306,14 +379,13 @@ public class FragmentXuLyDatCho extends Fragment implements View.OnClickListener
     public void onClick(View view) {
         Button seat = (Button) view;
         String seatNummber = (String) seat.getText();
-//        Toast.makeText(getContext(),seat.getText(), Toast.LENGTH_SHORT).show();
-        if(currentSelectedSeat.size() < 7){
+        if((soVeDaDat + soGheDangChon)< 6){
             if(currentSelectedSeat.containsKey(seatNummber)){
-                numOfTicket--;
+                soGheDangChon--;
                 currentSelectedSeat.remove(seatNummber);
                 seat.setBackground(getActivity().getResources().getDrawable(R.drawable.button_selector_2));
             }else{
-                ++numOfTicket;
+                ++soGheDangChon;
                 currentSelectedSeat.put(seatNummber,seat);
                 seat.setBackground(getActivity().getResources().getDrawable(R.drawable.seat_is_choosed));
             }
@@ -321,16 +393,17 @@ public class FragmentXuLyDatCho extends Fragment implements View.OnClickListener
             Toast.makeText(getContext(),"Bạn chỉ đươc chọn tối đa 6 ghế.", Toast.LENGTH_SHORT).show();
         }
     }
-//
-//    public List<String> getCurrentSelectedSeat() {
-//
-//    }
+
     public static ArrayList<String> getSelectedSeatNumbers(){
         ArrayList<String> arrayList = new ArrayList<>();
         for(String keySet: currentSelectedSeat.keySet()){
             arrayList.add(keySet);
-            Log.d("FragmentXuLyDatCho","Selected seat: " + keySet);
+            Log.d(TAG,"Selected seat: " + keySet);
         }
         return arrayList;
+    }
+
+    private void tangSoVeDaDat(){
+        soVeDaDat += 1;
     }
 }

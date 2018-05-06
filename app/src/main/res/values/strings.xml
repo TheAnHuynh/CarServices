@@ -36,6 +36,8 @@
     <string name="user_info">Thông tin người dùng</string>
     <string name="booking_history">Lịch sử đặt vé</string>
     <string name="logout">Đăng xuất</string>
+    <string name="rating">Đánh giá nhà xe</string>
+
     <!--activity_search-->
     <string name="start">Điểm đi:</string>
     <string name="end">Điểm đến:</string>

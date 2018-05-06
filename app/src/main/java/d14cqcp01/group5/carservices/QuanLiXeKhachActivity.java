@@ -15,12 +15,15 @@ public class QuanLiXeKhachActivity extends AppCompatActivity {
     private Button btnBookingHistory;
     private Button btnUserInfo;
     private Button btnDangXuat;
+    private Button btnRating;
     private FirebaseUser currentUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_quan_li_xe_khach);
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
         addControls();
         addEvents();
 
@@ -31,6 +34,7 @@ public class QuanLiXeKhachActivity extends AppCompatActivity {
         btnBookingHistory = findViewById(R.id.btnBookingHistory);
         btnUserInfo = findViewById(R.id.btnUserInfo);
         btnDangXuat = findViewById(R.id.btnDangXuat);
+        btnRating = findViewById(R.id.btnRating);
     }
 
     private void addEvents() {
@@ -43,29 +47,45 @@ public class QuanLiXeKhachActivity extends AppCompatActivity {
 
             }
         });
-
         btnBookingHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: Chuyển đến xem lịch sử đặt vé ( nếu chưa đăng nhập thì chuyển đến trang đăng nhập.)
-                startActivity(new Intent(QuanLiXeKhachActivity.this,HistoryLayoutController.class));
-                finish();
+                if(currentUser != null){
+                    startActivity(new Intent(QuanLiXeKhachActivity.this,HistoryLayoutController.class));
+                    finish();
+                }
+                else{
+                    startActivity(new Intent(QuanLiXeKhachActivity.this,LoginActivity.class));
+                    finish();
+                }
 
+            }
+        });
+
+        btnRating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(currentUser != null){
+                    startActivity(new Intent(QuanLiXeKhachActivity.this,CommentActivity.class));
+                    finish();
+                }
+                else{
+                    startActivity(new Intent(QuanLiXeKhachActivity.this,LoginActivity.class));
+                    finish();
+                }
             }
         });
 
         btnUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 if(currentUser != null){
-                    //TODO:Hiện thông tin người dùng.
                     startActivity(new Intent(QuanLiXeKhachActivity.this,UserInfoActivity.class));
                     finish();
                 }
                 else{
-                    //TODO: Chuyển hướng đến giao diện đăng nhập
-
+                    startActivity(new Intent(QuanLiXeKhachActivity.this,LoginActivity.class));
+                    finish();
                 }
             }
         });

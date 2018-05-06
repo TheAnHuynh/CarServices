@@ -23,6 +23,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
+        <activity android:name=".CommentActivity"/>
         <activity android:name=".HistoryLayoutController"/>
         <activity android:name=".UserInfoActivity"/>
         <activity android:name=".DetailActivity"/>
@@ -33,6 +34,7 @@
         <activity android:name=".DangKyTaiKhoanActivity" />
         <activity android:name=".SearchActivity"/>
         <activity android:name=".DatChoActivity"/>
+
     </application>
 
 </manifest>
