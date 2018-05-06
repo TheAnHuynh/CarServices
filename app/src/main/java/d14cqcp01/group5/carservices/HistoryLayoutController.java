@@ -16,6 +16,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,22 +31,26 @@ public class HistoryLayoutController extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
     String ticketLink = "TicketList";
+    String userList = "UserList";
+    String coachLink = "CoachList";
     ArrayList<TicketOfHistoryLayoutModel> arrTick1 = new ArrayList<TicketOfHistoryLayoutModel>();
     ArrayList<TicketOfHistoryLayoutModel> arrTick2 = new ArrayList<TicketOfHistoryLayoutModel>();
-    ArrayList<TicketOfHistoryLayoutModel> arrTick3 = new ArrayList<TicketOfHistoryLayoutModel>();
+    ArrayList<String> arrKey1 = new ArrayList<>();
+    ArrayList<String> arrKey2 = new ArrayList<>();
     ListView lvTick = null;
     ArrayListItemAdapterModel adapter1 = null;
     ArrayListItemAdapterModel adapter2 = null;
-    ArrayListItemAdapterModel adapter3 = null;
-    User user;
-    String username = "U0";
+    String userId;
     NestedScrollView scrollView;
+
+    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     public DatabaseReference mData;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        userId = user.getUid();
         setContentView(R.layout.layout_lich_su_dat_ve);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -57,17 +63,17 @@ public class HistoryLayoutController extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 arrTick1.clear();
                 arrTick2.clear();
-                arrTick3.clear();
-                DataSnapshot S = (dataSnapshot.child("UserList/"+ username +"/ticketList"));
+                DataSnapshot S = (dataSnapshot.child("UserList/"+ userId +"/ticketList"));
                 for (DataSnapshot item: S.getChildren()) {
-                    TicketListModel T = dataSnapshot.child("TicketList/" + item.getValue(String.class)).getValue(TicketListModel.class);
-                    CoachListModel C = dataSnapshot.child("CoachList/" + T.getIdCoach()).getValue(CoachListModel.class);
+                    TicketListModel T = dataSnapshot.child(ticketLink + "/" + item.getValue(String.class)).getValue(TicketListModel.class);
+                    CoachListModel C = dataSnapshot.child(coachLink + "/" + T.getIdCoach()).getValue(CoachListModel.class);
+                    String k = item.getKey();
                     if (T.getStatus().equals("Chờ thanh toán")){
+                        arrKey1.add(k);
                         arrTick1.add(new TicketOfHistoryLayoutModel(C,T));
                     }else if (T.getStatus().equals("Đã thanh toán")){
                         arrTick2.add(new TicketOfHistoryLayoutModel(C,T));
-                    }else if (T.getStatus().equals("Đã hoàn thành")){
-                        arrTick3.add(new TicketOfHistoryLayoutModel(C,T));
+                        arrKey2.add(k);
                     }
                 }
                 onDataChange1();
@@ -98,6 +104,7 @@ public class HistoryLayoutController extends AppCompatActivity {
                                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 mData.child(ticketLink + "/" + arrTick1.get(p).Ticket.getId() + "/status").setValue("Đã Hủy");
+                                                mData.child(userList + "/" + userId + "/" + "ticketList/" + arrKey1.get(p)).removeValue();
                                             }
                                         })
                                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -128,28 +135,6 @@ public class HistoryLayoutController extends AppCompatActivity {
                 (this, R.layout.layout_tabpage_lich_su_dat_ve_item, arrTick2,
                         null);
 
-        adapter3 = new ArrayListItemAdapterModel
-                (this, R.layout.layout_tabpage_lich_su_dat_ve_item, arrTick3,
-                        new ArrayListItemAdapterModel.OnListener() {
-
-
-                            @Override
-                            public void onCancel(int position, Activity context) {
-
-                            }
-
-                            @Override
-                            public void onPay(int position, Activity context) {
-
-                            }
-
-                            @Override
-                            public void onRating(int position, Activity context) {
-                                //Next view Rating
-
-                            }
-                        });
-
         tabLayout.setupWithViewPager(viewPager);
         setupViewPager(viewPager);
         setupTabIcons();
@@ -159,13 +144,10 @@ public class HistoryLayoutController extends AppCompatActivity {
         ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         PageChoXuLiOfHistoryLayoutModel Fragment1 = new PageChoXuLiOfHistoryLayoutModel();
         PageChoXuLiOfHistoryLayoutModel Fragment2 = new PageChoXuLiOfHistoryLayoutModel();
-        PageChoXuLiOfHistoryLayoutModel Fragment3 = new PageChoXuLiOfHistoryLayoutModel();
         Fragment1.setAdapter(adapter1);
         Fragment2.setAdapter(adapter2);
-        Fragment3.setAdapter(adapter3);
         pagerAdapter.addFragment(Fragment1, "Chờ xử lí");
         pagerAdapter.addFragment(Fragment2, "Đã thanh toán");
-        pagerAdapter.addFragment(Fragment3, "Đã thành công");
         viewPager.setAdapter(pagerAdapter);
         viewPager.setOffscreenPageLimit(4);
 //        pagerAdapter.getItem(0).getActivity().getTitle()
