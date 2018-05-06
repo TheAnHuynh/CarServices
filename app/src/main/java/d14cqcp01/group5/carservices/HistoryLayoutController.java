@@ -61,6 +61,8 @@ public class HistoryLayoutController extends AppCompatActivity {
         mData.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                arrKey1.clear();
+                arrKey2.clear();
                 arrTick1.clear();
                 arrTick2.clear();
                 DataSnapshot S = (dataSnapshot.child("UserList/"+ userId +"/ticketList"));
