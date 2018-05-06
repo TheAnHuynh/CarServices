@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.OnCompleteListener;
+// Man Trinh 2018/04/18
 public class QuenMatKhauActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private final static String TAG = "QuenMatKhauActivity";

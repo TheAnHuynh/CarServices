@@ -23,7 +23,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-
+//Man Trinh 2018/04/18
 public class DangKyTaiKhoanActivity extends AppCompatActivity {
 
 private FirebaseAuth mAuth;
@@ -71,7 +71,7 @@ private FirebaseAuth mAuth;
                 }
 
                 final String rexStr = "^[0-9]$";
-                if(phoneNumber.length() < 10 || phoneNumber.length() > 12){
+                if(phoneNumber.length() < 9 || phoneNumber.length() > 12){
                     Log.d(TAG,"Số điện thoại không hợp lệ");
                     Toast.makeText(DangKyTaiKhoanActivity.this,"Số điện thoại không hợp lệ",Toast.LENGTH_SHORT).show();
                     return;
