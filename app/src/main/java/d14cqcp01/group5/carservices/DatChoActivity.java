@@ -33,7 +33,7 @@ public class DatChoActivity extends AppCompatActivity {
 
     private final static String TAG = DatChoActivity.class.getSimpleName();
     private String currentCarID;
-//    private XeKhach currentCar;
+
     private FirebaseUser user;
     private XeKhach currentCar;
     private DatabaseReference ticketListRef; // Tham chiếu đến danh sách chi tiết vé .
@@ -73,6 +73,7 @@ public class DatChoActivity extends AppCompatActivity {
         if(user!=null){
             ticketHistoryOfUser = FirebaseDatabase.getInstance().getReference("UserList/" + user.getUid() + "/ticketList");
         }
+
         btnDatCho.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,7 +81,7 @@ public class DatChoActivity extends AppCompatActivity {
                     ArrayList<String> seats = FragmentXuLyDatCho.getSelectedSeatNumbers();
                     if(seats.size()>0){
                         for(String seatNumber: seats){
-                            String key = ticketListRef.push().getKey();
+                            final String key = ticketListRef.push().getKey();
                             VeXe ve = new VeXe();
                             ve.setIdCoach(currentCarID);
                             ve.setSeatNumber(Integer.parseInt(seatNumber));
@@ -88,11 +89,24 @@ public class DatChoActivity extends AppCompatActivity {
                             ve.setStatus("Chờ thanh toán");
                             ve.setId(key);
                             ticketListRef.child(key).setValue(ve);
+
                             Log.d(TAG,"Tạo vé thành công: " + key);
                             coachRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     currentCar = dataSnapshot.getValue(XeKhach.class);
+                                    try{
+                                        if(currentCar.getTicketList() == null){
+                                            currentCar.setTicketList(new ArrayList<String>());
+
+                                        }
+                                        currentCar.addTicket(key);
+                                        coachRef.setValue(currentCar);
+                                    }catch (Exception e){
+                                        Log.e(TAG,e.toString());
+                                        currentCar.setTicketList(new ArrayList<String>());
+                                        coachRef.setValue(currentCar);
+                                    }
                                 }
 
                                 @Override
@@ -100,12 +114,8 @@ public class DatChoActivity extends AppCompatActivity {
 
                                 }
                             });
-                            if(currentCar.getTicketList() == null){
-                                currentCar.setTicketList(new ArrayList<String>());
-                            }
-                            currentCar.addTicket(key);
-                            coachRef.setValue(currentCar);
-                            ticketHistoryOfUser.child("ticketList").push().setValue(key);
+
+                            ticketHistoryOfUser.push().setValue(key);
                         }
                         Toast.makeText(DatChoActivity.this, "Đặt vé thành công.",Toast.LENGTH_SHORT).show();
                         Intent intent1 = new Intent(DatChoActivity.this,SearchActivity.class);
