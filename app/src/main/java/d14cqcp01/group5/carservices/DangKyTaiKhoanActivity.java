@@ -13,7 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import android.net.Uri;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.AuthResult;
 import com.google.android.gms.tasks.Task;
@@ -29,8 +34,10 @@ public class DangKyTaiKhoanActivity extends AppCompatActivity {
 private FirebaseAuth mAuth;
 
     private final static String TAG = DangKyTaiKhoanActivity.class.getSimpleName();
-
-    private Button btnDangki;
+    private static int RESULT_LOAD_IMAGE = 1;
+    ImageView imgView;
+    Uri imageUri1;
+    private Button btnDangki , btnUp;
     //private ImageView imgAvatar;
     private EditText edtFullName, edtEmail, edtPassword, edtPhone, edtPasswordConfirm;
 //    NguoiDung Nuser = new NguoiDung();
@@ -39,7 +46,15 @@ private FirebaseAuth mAuth;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_dang_ky_tai_khoan);
         mAuth = FirebaseAuth.getInstance();
-        AnhXa();
+        AnhXa();btnUp.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                UpAvarta();
+            }
+        });
+
         btnDangki.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,6 +105,9 @@ private FirebaseAuth mAuth;
         edtPassword = findViewById(R.id.txtMatkhau);
         edtPasswordConfirm = findViewById(R.id.txtRePass);
         edtPhone = findViewById(R.id.txtSDT);
+        btnUp = (Button)findViewById(R.id.btnUp);
+        imgView = (ImageView) findViewById(R.id.Avarta);
+
     }
     private void Dangki(String email, String password, final String fullName, final String phone ) {
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -101,7 +119,7 @@ private FirebaseAuth mAuth;
                             Toast.makeText(DangKyTaiKhoanActivity.this, "Đăng kí thành công", Toast.LENGTH_SHORT).show();
                             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                            updateUI(user,fullName,phone);
+                            updateUI(user,fullName,phone,imageUri1);
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -115,9 +133,10 @@ private FirebaseAuth mAuth;
 
     }
 
-    private void updateUI(FirebaseUser user, String fullName , String Phone) {
+    private void updateUI(FirebaseUser user, String fullName , String Phone , Uri image) {
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(fullName)
+                .setPhotoUri(image)
                 .build();
 
         user.updateProfile(profileUpdates)
@@ -131,6 +150,34 @@ private FirebaseAuth mAuth;
                 });
         DatabaseReference myref = FirebaseDatabase.getInstance().getReference();
         myref.child("Phone").child(user.getUid()).setValue(Phone);
+    }
+    @Override
+    protected void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
+
+
+        if (resultCode == RESULT_OK) {
+            try {
+                final Uri imageUri = data.getData();
+                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                imageUri1 = imageUri;
+                imgView.setImageBitmap(selectedImage);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                Toast.makeText(DangKyTaiKhoanActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+            }
+
+        }else {
+            Toast.makeText(DangKyTaiKhoanActivity.this, "You haven't picked Image",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void UpAvarta()
+    {
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, RESULT_LOAD_IMAGE);
     }
 
     @Override
