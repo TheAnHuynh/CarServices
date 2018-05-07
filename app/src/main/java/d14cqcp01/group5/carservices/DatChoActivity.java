@@ -78,49 +78,46 @@ public class DatChoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(FragmentXuLyDatCho.getSelectedSeatNumbers().size() >0){
-                    ArrayList<String> seats = FragmentXuLyDatCho.getSelectedSeatNumbers();
+                    final ArrayList<String> seats = FragmentXuLyDatCho.getSelectedSeatNumbers();
                     if(seats.size()>0){
-                        for(String seatNumber: seats){
-                            final String key = ticketListRef.push().getKey();
-                            VeXe ve = new VeXe();
-                            ve.setIdCoach(currentCarID);
-                            ve.setSeatNumber(Integer.parseInt(seatNumber));
-                            ve.setOrderTime(System.currentTimeMillis());
-                            ve.setStatus("Chờ thanh toán");
-                            ve.setId(key);
-                            ticketListRef.child(key).setValue(ve);
-
-                            Log.d(TAG,"Tạo vé thành công: " + key);
-                            coachRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    currentCar = dataSnapshot.getValue(XeKhach.class);
-                                    try{
-                                        if(currentCar.getTicketList() == null){
-                                            currentCar.setTicketList(new ArrayList<String>());
-
-                                        }
-                                        currentCar.addTicket(key);
-                                        coachRef.setValue(currentCar);
-                                    }catch (Exception e){
-                                        Log.e(TAG,e.toString());
+                        coachRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                currentCar = dataSnapshot.getValue(XeKhach.class);
+                                try{
                                         currentCar.setTicketList(new ArrayList<String>());
-                                        coachRef.setValue(currentCar);
-                                    }
+                                        for(String seatNumber: seats) {
+                                            final String key = ticketListRef.push().getKey();
+                                            VeXe ve = new VeXe();
+                                            ve.setIdCoach(currentCarID);
+                                            ve.setSeatNumber(Integer.parseInt(seatNumber));
+                                            ve.setOrderTime(System.currentTimeMillis());
+                                            ve.setStatus("Chờ thanh toán");
+                                            ve.setId(key);
+                                            ticketListRef.child(key).setValue(ve);
+                                            currentCar.addTicket(key);
+                                            Log.d(TAG, "Tạo vé thành công: " + key);
+                                            ticketHistoryOfUser.push().setValue(key);
+                                        }
+                                            coachRef.child("ticketList").setValue(currentCar.getTicketList());
+                                            Toast.makeText(DatChoActivity.this, "Đặt vé thành công.",Toast.LENGTH_SHORT).show();
+                                            Intent intent1 = new Intent(DatChoActivity.this,SearchActivity.class);
+                                            startActivity(intent1);
+                                            finish();
+
+                                }catch (Exception e){
+                                    Log.e(TAG,e.toString());
+//                                    coachRef.child("ticketList").setValue(currentCar);
+//                                        currentCar.setTicketList(new ArrayList<String>());
+//                                        coachRef.setValue(currentCar);
                                 }
+                            }
 
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                                }
-                            });
-
-                            ticketHistoryOfUser.push().setValue(key);
-                        }
-                        Toast.makeText(DatChoActivity.this, "Đặt vé thành công.",Toast.LENGTH_SHORT).show();
-                        Intent intent1 = new Intent(DatChoActivity.this,SearchActivity.class);
-                        startActivity(intent1);
-                        finish();
+                            }
+                        });
                     }else{
                         Toast.makeText(DatChoActivity.this, "Bạn chưa chọn ghế",Toast.LENGTH_SHORT).show();
                     }

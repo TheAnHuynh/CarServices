@@ -208,6 +208,8 @@ public class SearchActivity extends AppCompatActivity {
                     @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for(DataSnapshot child : dataSnapshot.getChildren()){
+
+                                Log.d(TAG,child.toString());
                                 XeKhach xe = child.getValue(XeKhach.class);
                                 if(xe.getTimeStart() > System.currentTimeMillis()){
                                     xeKhachArrayList.add(xe);
