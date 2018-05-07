@@ -45,7 +45,6 @@ public class AdapterResult extends ArrayAdapter {
         TextView txtFromTo = view.findViewById(R.id.txtFromTo);
         TextView txtTime = view.findViewById(R.id.txtTime);
         TextView txtDay = view.findViewById(R.id.txtDay);
-        TextView txtStars = view.findViewById(R.id.txtStars);
 
         final XeKhach xe = list.get(position);
         txtCompanyName.setText(xe.getCompanyId());
@@ -58,7 +57,6 @@ public class AdapterResult extends ArrayAdapter {
 
         SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
         txtDay.setText("Ngày: " + sdf1.format(new Date(xe.getTimeStart())));
-        txtStars.setText(String.valueOf(xe.getStars()));
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
