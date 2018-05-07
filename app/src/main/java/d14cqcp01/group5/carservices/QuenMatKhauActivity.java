@@ -21,7 +21,7 @@ public class QuenMatKhauActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     Button btnDangki;
     EditText email;
-    // NguoiDung Nuser = new NguoiDung();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
